@@ -2,13 +2,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="http://schemas.microsoft.com/surface/2008"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Urban_Planning_Simulation.SurfaceWindow1"
-    Title="Urban_Planning_Simulation" Background="DarkGreen"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d" 
+    x:Class="Urban_Planning_Simulation.SurfaceWindow1"
+    Title="Urban_Planning_Simulation" 
+    Background="DarkGreen"
     >
   <Grid>
   	<StackPanel Orientation="Vertical" Margin="123.763,147.398,114.387,0" VerticalAlignment="Top" >
-  		<s:SurfaceTextBox Background="Transparent" Foreground="Black" FontSize="40" Margin="0,100,0,100" BorderThickness="0" TextWrapping="Wrap" Focusable="False" Text="Urban Planning Simulation" TextAlignment="Center" />
-  		<s:SurfaceButton HorizontalAlignment="Center" Click="Start_Click" Background="Gray" Content="Start" Margin="0,0,0,0" TextBlock.Foreground="Black" TextBlock.TextAlignment="Center" Padding="50,0,50,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Bottom" />
+  		<s:SurfaceTextBox Name="StartText" Background="Transparent" Foreground="Black" FontSize="40" Margin="0,100,0,100" BorderThickness="0" TextWrapping="Wrap" Focusable="False" Text="Urban Planning Simulation" TextAlignment="Center" />
+  		<s:SurfaceButton Name="StartButton" HorizontalAlignment="Center" Click="Start_Click" Background="Gray" Content="Start" Margin="0,0,0,0" TextBlock.Foreground="Black" TextBlock.TextAlignment="Center" Padding="50,0,50,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Bottom" />
   	</StackPanel>
   </Grid>
 </s:SurfaceWindow>
