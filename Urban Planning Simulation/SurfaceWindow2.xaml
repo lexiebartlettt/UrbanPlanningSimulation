@@ -14,7 +14,12 @@
     >
   <Grid>
   	<s:ScatterView x:Name="MainScatterview"/>
-  	<StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,8,8">
+    <s:SurfaceScrollViewer>
+        <StackPanel>
+            <Rectangle Width="8000" Height="8000" Fill="Green"/>
+        </StackPanel>
+    </s:SurfaceScrollViewer>
+        <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,8,8">
   		<Border x:Name="HouseBorder" BorderThickness="1" BorderBrush="Black" d:LayoutOverrides="Height">
   			<s:SurfaceButton x:Name="HouseButton" Click="HouseButton_Click" Content="House" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
   		</Border>
