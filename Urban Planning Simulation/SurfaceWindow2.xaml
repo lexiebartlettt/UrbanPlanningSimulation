@@ -1,44 +1,10 @@
-﻿<!--TODO 
-- Change button contents to button images
-- Make sure the scatterview is the thing we need
--->
-<s:SurfaceWindow x:Class="Urban_Planning_Simulation.SurfaceWindow2"
+﻿<s:SurfaceWindow x:Class="Urban_Planning_Simulation.SurfaceWindow2"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="http://schemas.microsoft.com/surface/2008"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    mc:Ignorable="d"
     Title="Urban_Planning_Simulation"
-    Background="DarkGreen"
     >
   <Grid>
-  	<s:ScatterView x:Name="MainScatterview"/>
-  	<StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,8,8">
-  		<Border x:Name="HouseBorder" BorderThickness="1" BorderBrush="Black" d:LayoutOverrides="Height">
-  			<s:SurfaceButton x:Name="HouseButton" Click="HouseButton_Click" Content="House" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-  		</Border>
-		<s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
-		<Border x:Name="RoadBorder" BorderThickness="1" BorderBrush="Black">
-			<s:SurfaceButton x:Name="RoadButton" Click="RoadButton_Click" Content="Road" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-		</Border>
-		<s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
-		<Border x:Name="FreeRoamBorder" BorderThickness="1" BorderBrush="Black">
-	  		<s:SurfaceButton x:Name="FreeRoamButton" Click="FreeRoamButton_Click" Content="Free Roam" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-		</Border>
-  	</StackPanel>
-  	<StackPanel x:Name="LeftButtons" HorizontalAlignment="Left" Margin="8,0,0,8" Orientation="Horizontal" VerticalAlignment="Bottom">
-  		<Border x:Name="UndoBorder" BorderThickness="1" BorderBrush="Black">
-  			<s:SurfaceButton x:Name="UndoButton" Click="UndoButton_Click" Content="Undo" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-  		</Border>
-		<s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
-		<Border x:Name="RedoBorder" BorderThickness="1" BorderBrush="Black">
-			<s:SurfaceButton x:Name="RedoButton" Click="RedoButton_Click" Content="Redo" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-  		</Border>
-		<s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
-		<Border x:Name="ClearBorder" BorderThickness="1" BorderBrush="Black">
-			<s:SurfaceButton x:Name="ClearButton" Click="ClearButton_Click" Content="Clear" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-  		</Border>
-	</StackPanel>
+
   </Grid>
 </s:SurfaceWindow>

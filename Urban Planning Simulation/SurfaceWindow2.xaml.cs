@@ -32,9 +32,6 @@ namespace Urban_Planning_Simulation
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
-
-            // Default to house mode
-            HouseBorder.BorderThickness = new Thickness(5);
         }
 
         /// <summary>
@@ -101,54 +98,6 @@ namespace Urban_Planning_Simulation
         private void OnWindowUnavailable(object sender, EventArgs e)
         {
             //TODO: disable audio, animations here
-        }
-
-        // When house button is clicked
-        private void HouseButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Change thickness to depict you are in that mode
-            HouseBorder.BorderThickness = new Thickness(5);
-            RoadBorder.BorderThickness = new Thickness(1);
-            FreeRoamBorder.BorderThickness = new Thickness(1);
-            //MessageBox.Show("House");
-        }
-
-        // When road button is clicked
-        private void RoadButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Change thickness to depict you are in that mode
-            HouseBorder.BorderThickness = new Thickness(1);
-            RoadBorder.BorderThickness = new Thickness(5);
-            FreeRoamBorder.BorderThickness = new Thickness(1);
-            //MessageBox.Show("Road");
-        }
-
-        // When free roam button is clicked
-        private void FreeRoamButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Change thickness to depict you are in that mode
-            HouseBorder.BorderThickness = new Thickness(1);
-            RoadBorder.BorderThickness = new Thickness(1);
-            FreeRoamBorder.BorderThickness = new Thickness(5);
-            //MessageBox.Show("Free Roam");
-        }
-
-        // When undo button is clicked
-        private void UndoButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Undo");
-        }
-
-        // When redo button is clicked
-        private void RedoButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Redo");
-        }
-
-        // When clear button is clicked
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Clear");
         }
     }
 }

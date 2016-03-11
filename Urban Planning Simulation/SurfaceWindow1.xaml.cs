@@ -104,10 +104,9 @@ namespace Urban_Planning_Simulation
         // (probably a better way to do this than creating a new window but for now it works)
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Go to main window");
             SurfaceWindow2 mainWindow = new SurfaceWindow2();
             mainWindow.Show();
-            // Don't need start window anymore (Maybe keep it open though?)
+            // Don't need start window anymore
             this.Close();
         }
     }
