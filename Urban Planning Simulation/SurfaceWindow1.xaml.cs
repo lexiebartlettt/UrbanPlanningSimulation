@@ -110,5 +110,11 @@ namespace Urban_Planning_Simulation
             // Don't need start window anymore (Maybe keep it open though?)
             this.Close();
         }
+
+        // Called when "Test Mode" button is clicked
+        private void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Run Test Mode");
+        }
     }
 }

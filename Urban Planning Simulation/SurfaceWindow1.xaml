@@ -10,9 +10,23 @@
     Background="DarkGreen"
     >
   <Grid>
-  	<StackPanel Orientation="Vertical" Margin="123.763,147.398,114.387,0" VerticalAlignment="Top" >
+  	<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
   		<s:SurfaceTextBox Name="StartText" Background="Transparent" Foreground="Black" FontSize="40" Margin="0,100,0,100" BorderThickness="0" TextWrapping="Wrap" Focusable="False" Text="Urban Planning Simulation" TextAlignment="Center" />
-  		<s:SurfaceButton Name="StartButton" HorizontalAlignment="Center" Click="Start_Click" Background="Gray" Content="Start" Margin="0,0,0,0" TextBlock.Foreground="Black" TextBlock.TextAlignment="Center" Padding="50,0,50,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Bottom" />
+        <Grid>
+            <!-- Label for activating the ElementMenu -->
+            <Label Name="StartMenuLabel"
+                Content="Touch Here to Begin" 
+                HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+            <!-- Actual settings for the ElementMenu-->
+            <s:ElementMenu
+                Name="StartMenu"
+                ActivationMode="HostInteraction" 
+                ActivationHost="{Binding ElementName=StartMenuLabel}">
+                    <s:ElementMenuItem Header="Open Mode" Click="Start_Click"/>
+                    <s:ElementMenuItem Header="Test Mode" Click="TestButton_Click"/>
+            </s:ElementMenu>
+        </Grid>
   	</StackPanel>
   </Grid>
 </s:SurfaceWindow>
