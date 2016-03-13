@@ -13,10 +13,10 @@
     Background="DarkGreen" d:DesignHeight="403" d:DesignWidth="779" SizeToContent="WidthAndHeight">
   <Grid>
 
-        <s:SurfaceScrollViewer  x:Name="MainPanel" MouseDoubleClick="Click">
+    <s:SurfaceScrollViewer  x:Name="MainPanel" MouseDoubleClick="Click">
         <s:ScatterView x:Name="MainScatterview" Height="8000" Width="8000" BorderBrush="LightGreen" BorderThickness="4"  />
     </s:SurfaceScrollViewer>
-    <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,8,8">
+    <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,35,35">
   		<Border x:Name="HouseBorder" BorderThickness="1" BorderBrush="Black" d:LayoutOverrides="Height">
   			<s:SurfaceButton x:Name="HouseButton" Click="HouseButton_Click" Content="House" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
   		</Border>
@@ -30,7 +30,7 @@
 		</Border>
     </StackPanel>
       
-  	<StackPanel x:Name="LeftButtons" HorizontalAlignment="Left" Margin="8,0,0,8" Orientation="Horizontal" VerticalAlignment="Bottom" MinHeight="0">
+  	<StackPanel x:Name="LeftButtons" HorizontalAlignment="Left" Margin="35,0,0,35" Orientation="Horizontal" VerticalAlignment="Bottom" MinHeight="0">
   		<Border x:Name="UndoBorder" BorderThickness="1" BorderBrush="Black">
   			<s:SurfaceButton x:Name="UndoButton" Click="UndoButton_Click" Content="Undo" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
   		</Border>
