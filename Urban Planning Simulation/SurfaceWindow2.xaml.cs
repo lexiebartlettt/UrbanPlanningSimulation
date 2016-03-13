@@ -30,11 +30,28 @@ namespace Urban_Planning_Simulation
         {
             InitializeComponent();
 
+            // Initialize Variables
+            Double WindowHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            Double WindowWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
 
             // Default to house mode
             HouseBorder.BorderThickness = new Thickness(5);
+
+            // Setting sizes for StackPanels
+            RightButtons.Height = WindowHeight / 10;
+            LeftButtons.Height = WindowHeight / 10;
+
+            // Setting Button Sizes
+            SetButtonSize(HouseButton, WindowHeight / 10);
+            SetButtonSize(RoadButton, WindowHeight / 10);
+            SetButtonSize(FreeRoamButton, WindowHeight / 10);
+            SetButtonSize(UndoButton, WindowHeight / 10);
+            SetButtonSize(RedoButton, WindowHeight / 10);
+            SetButtonSize(ClearButton, WindowHeight / 10);
+
         }
 
         /// <summary>
@@ -149,6 +166,17 @@ namespace Urban_Planning_Simulation
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Clear");
+        }
+
+        //======================================================================
+        //                          Helper Functions
+        //======================================================================
+
+        // Sets the passed button's width and height to be equal to size
+        private void SetButtonSize(SurfaceButton button, Double size)
+        {
+            button.Height = size;
+            button.Width = size;
         }
     }
 }

@@ -10,8 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d"
     Title="Urban_Planning_Simulation"
-    Background="DarkGreen"
-    >
+    Background="DarkGreen" d:DesignHeight="403" d:DesignWidth="779" SizeToContent="WidthAndHeight">
   <Grid>
   	<s:ScatterView x:Name="MainScatterview"/>
     <s:SurfaceScrollViewer>
@@ -19,7 +18,7 @@
             <Rectangle Width="8000" Height="8000" Fill="Green"/>
         </StackPanel>
     </s:SurfaceScrollViewer>
-        <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,8,8">
+    <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,8,8">
   		<Border x:Name="HouseBorder" BorderThickness="1" BorderBrush="Black" d:LayoutOverrides="Height">
   			<s:SurfaceButton x:Name="HouseButton" Click="HouseButton_Click" Content="House" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
   		</Border>
@@ -31,8 +30,9 @@
 		<Border x:Name="FreeRoamBorder" BorderThickness="1" BorderBrush="Black">
 	  		<s:SurfaceButton x:Name="FreeRoamButton" Click="FreeRoamButton_Click" Content="Free Roam" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 		</Border>
-  	</StackPanel>
-  	<StackPanel x:Name="LeftButtons" HorizontalAlignment="Left" Margin="8,0,0,8" Orientation="Horizontal" VerticalAlignment="Bottom">
+    </StackPanel>
+      
+  	<StackPanel x:Name="LeftButtons" HorizontalAlignment="Left" Margin="8,0,0,8" Orientation="Horizontal" VerticalAlignment="Bottom" MinHeight="0">
   		<Border x:Name="UndoBorder" BorderThickness="1" BorderBrush="Black">
   			<s:SurfaceButton x:Name="UndoButton" Click="UndoButton_Click" Content="Undo" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
   		</Border>
