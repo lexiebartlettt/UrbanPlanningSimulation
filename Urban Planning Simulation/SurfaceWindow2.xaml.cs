@@ -134,11 +134,19 @@ namespace Urban_Planning_Simulation
         private void Click(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
+            MainPanel.UpdateLayout();
             Point mousePosition = e.GetPosition(this);
+            mousePosition.X += MainPanel.HorizontalOffset;
+            mousePosition.Y += MainPanel.VerticalOffset;
             ScatterViewItem item = new ScatterViewItem();
+            //Image img = new BitmapImage(new Uri("C:\Users\Nic\Documents\key_image2.png"));
+            //item.Content = img;
+
+            
             item.Center = mousePosition;
+            item.Orientation = 0;
             MainScatterview.Items.Add(item);
-            item.BringIntoView();
+            //item.BringIntoView();
         }
 
 
