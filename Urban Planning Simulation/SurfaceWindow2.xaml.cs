@@ -128,6 +128,8 @@ namespace Urban_Planning_Simulation
             RoadBorder.BorderThickness = new Thickness(1);
             FreeRoamBorder.BorderThickness = new Thickness(1);
             //MessageBox.Show("House");
+            ScatterViewItem item = new ScatterViewItem();
+            MainScatterview.Items.Add(item);
         }
 
         // When road button is clicked
@@ -165,7 +167,7 @@ namespace Urban_Planning_Simulation
         // When clear button is clicked
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Clear");
+            MainScatterview.Items.Clear();
         }
 
         //======================================================================
