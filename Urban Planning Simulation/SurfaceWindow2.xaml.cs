@@ -128,9 +128,20 @@ namespace Urban_Planning_Simulation
             RoadBorder.BorderThickness = new Thickness(1);
             FreeRoamBorder.BorderThickness = new Thickness(1);
             //MessageBox.Show("House");
-            ScatterViewItem item = new ScatterViewItem();
-            MainScatterview.Items.Add(item);
+           
         }
+
+        private void Click(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            Point mousePosition = e.GetPosition(this);
+            ScatterViewItem item = new ScatterViewItem();
+            item.Center = mousePosition;
+            MainScatterview.Items.Add(item);
+            item.BringIntoView();
+        }
+
+
 
         // When road button is clicked
         private void RoadButton_Click(object sender, RoutedEventArgs e)
@@ -154,8 +165,11 @@ namespace Urban_Planning_Simulation
 
         // When undo button is clicked
         private void UndoButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Undo");
+        {   int count = MainScatterview.Items.Count;
+            if (count > 0)
+            {
+                MainScatterview.Items.RemoveAt(count-1);
+            }
         }
 
         // When redo button is clicked
