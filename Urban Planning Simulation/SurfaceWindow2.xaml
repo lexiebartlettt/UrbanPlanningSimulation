@@ -12,8 +12,7 @@
     Title="Urban_Planning_Simulation"
     Background="DarkGreen" d:DesignHeight="403" d:DesignWidth="779" SizeToContent="WidthAndHeight">
   <Grid>
-
-    <s:SurfaceScrollViewer  x:Name="MainPanel" MouseDoubleClick="Click">
+        <s:SurfaceScrollViewer  x:Name="MainPanel" MouseDoubleClick="Click" s:TouchExtensions.HoldGesture="gesturebox_HoldGesture">
         <s:ScatterView x:Name="MainScatterview" Height="8000" Width="8000" BorderBrush="LightGreen" BorderThickness="4"  />
     </s:SurfaceScrollViewer>
     <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,35,35">

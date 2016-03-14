@@ -118,6 +118,7 @@ namespace Urban_Planning_Simulation
            
         }
 
+        // For mouse clicks
         private void Click(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
@@ -136,7 +137,23 @@ namespace Urban_Planning_Simulation
             //item.BringIntoView();
         }
 
+        // For hold gestures
+        private void gesturebox_HoldGesture(object sender, TouchEventArgs e)
+        {
+            e.Handled = true;
+            MainPanel.UpdateLayout();
+            Point p = e.TouchDevice.GetPosition(this);
+            p.X += MainPanel.HorizontalOffset;
+            p.Y += MainPanel.VerticalOffset;
+            ScatterViewItem item = new ScatterViewItem();
+            //Image img = new BitmapImage(new Uri("C:\Users\Nic\Documents\key_image2.png"));
+            //item.Content = img;
 
+            item.Center = p;
+            item.Orientation = 0;
+            MainScatterview.Items.Add(item);
+            //item.BringIntoView();
+        }
 
         // When road button is clicked
         private void RoadButton_Click(object sender, RoutedEventArgs e)
