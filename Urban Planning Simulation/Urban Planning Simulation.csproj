@@ -59,6 +59,9 @@
     <Compile Include="SurfaceWindow2.xaml.cs">
       <DependentUpon>SurfaceWindow2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TagVisualization1.xaml.cs">
+      <DependentUpon>TagVisualization1.xaml</DependentUpon>
+    </Compile>
     <Page Include="SurfaceWindow1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,6 +75,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SurfaceWindow2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TagVisualization1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

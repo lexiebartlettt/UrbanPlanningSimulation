@@ -155,6 +155,23 @@ namespace Urban_Planning_Simulation
             //item.BringIntoView();
         }
 
+        // When tag is detected
+        private void UrbanTagVisualizer_VisualizationAdded(object sender, TagVisualizerEventArgs e)
+        {
+            TagVisualization1 objectTag = (TagVisualization1)e.TagVisualization;
+            switch (objectTag.VisualizedTag.Value)
+            {
+                case 0:
+                    objectTag.HouseModel.Content = "HOUSE ADDED";
+                    objectTag.myHouse.Fill = SurfaceColors.Accent1Brush;
+                    break;
+                default:
+                    objectTag.HouseModel.Content = "UNKNOWN MODEL";
+                    objectTag.myHouse.Fill = SurfaceColors.ControlAccentBrush;
+                    break;
+            }
+        }
+
         // When road button is clicked
         private void RoadButton_Click(object sender, RoutedEventArgs e)
         {

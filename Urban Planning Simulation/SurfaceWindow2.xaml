@@ -12,8 +12,13 @@
     Title="Urban_Planning_Simulation"
     Background="DarkGreen" d:DesignHeight="403" d:DesignWidth="779" SizeToContent="WidthAndHeight">
   <Grid>
-        <s:SurfaceScrollViewer  x:Name="MainPanel" MouseDoubleClick="Click" s:TouchExtensions.HoldGesture="gesturebox_HoldGesture">
-        <s:ScatterView x:Name="MainScatterview" Height="8000" Width="8000" BorderBrush="LightGreen" BorderThickness="4"  />
+    <s:SurfaceScrollViewer  x:Name="MainPanel" MouseDoubleClick="Click" s:TouchExtensions.HoldGesture="gesturebox_HoldGesture">
+        <s:TagVisualizer x:Name="UrbanTagVisualizer" Height="8000" Width="8000" VisualizationAdded="UrbanTagVisualizer_VisualizationAdded">
+			<s:TagVisualizer.Definitions>
+                <s:TagVisualizationDefinition x:Name="House" Value="0x00"  Source="TagVisualization1.xaml" LostTagTimeout="2000" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="2,2" TagRemovedBehavior="Fade" UsesTagOrientation="True" />
+			</s:TagVisualizer.Definitions>
+    		<s:ScatterView x:Name="MainScatterview" BorderBrush="LightGreen" BorderThickness="4"  />
+    	</s:TagVisualizer>
     </s:SurfaceScrollViewer>
     <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,35,35">
   		<Border x:Name="HouseBorder" BorderThickness="1" BorderBrush="Black" d:LayoutOverrides="Height">
