@@ -35,6 +35,11 @@ namespace Urban_Planning_Simulation
 
             // Default to house mode
             HouseBorder.BorderThickness = new Thickness(5);
+            MainPanel.ScrollToVerticalOffset(4000);
+            MainPanel.ScrollToHorizontalOffset(4000);
+            MainPanel.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+            MainPanel.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
+            MainPanel.PanningMode = PanningMode.None;
 
             // Initialize button panels
             InitializePanels();
@@ -114,6 +119,7 @@ namespace Urban_Planning_Simulation
             HouseBorder.BorderThickness = new Thickness(5);
             RoadBorder.BorderThickness = new Thickness(1);
             FreeRoamBorder.BorderThickness = new Thickness(1);
+            MainPanel.PanningMode = PanningMode.None;
             //MessageBox.Show("House");
            
         }
@@ -179,6 +185,7 @@ namespace Urban_Planning_Simulation
             HouseBorder.BorderThickness = new Thickness(1);
             RoadBorder.BorderThickness = new Thickness(5);
             FreeRoamBorder.BorderThickness = new Thickness(1);
+            MainPanel.PanningMode = PanningMode.None;
             //MessageBox.Show("Road");
         }
 
@@ -189,6 +196,7 @@ namespace Urban_Planning_Simulation
             HouseBorder.BorderThickness = new Thickness(1);
             RoadBorder.BorderThickness = new Thickness(1);
             FreeRoamBorder.BorderThickness = new Thickness(5);
+            MainPanel.PanningMode = PanningMode.Both;
             //MessageBox.Show("Free Roam");
         }
 
