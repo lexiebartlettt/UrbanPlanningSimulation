@@ -24,6 +24,8 @@ namespace Urban_Planning_Simulation
     public partial class SurfaceWindow2 : SurfaceWindow
     {
 
+        static int DEFAULT_HOUSE = 1;
+
         private Boolean canPlaceHouse;
         /// <summary>
         /// Default constructor.
@@ -138,10 +140,10 @@ namespace Urban_Planning_Simulation
                 Point mousePosition = e.GetPosition(this);
                 mousePosition.X += MainPanel.HorizontalOffset;
                 mousePosition.Y += MainPanel.VerticalOffset;
-                ScatterViewItem item = new ScatterViewItem();
-                //Image img = new BitmapImage(new Uri("C:\Users\Nic\Documents\key_image2.png"));
-                //item.Content = img;
 
+                // Setting the ScatterView image background
+                ScatterViewItem item = new ScatterViewItem();
+                SetSVHouseImage(item, DEFAULT_HOUSE);
 
                 item.Center = mousePosition;
                 item.Orientation = 0;
@@ -158,9 +160,10 @@ namespace Urban_Planning_Simulation
             Point p = e.TouchDevice.GetPosition(this);
             p.X += MainPanel.HorizontalOffset;
             p.Y += MainPanel.VerticalOffset;
+
+            // Setting the ScatterView image background
             ScatterViewItem item = new ScatterViewItem();
-            //Image img = new BitmapImage(new Uri("C:\Users\Nic\Documents\key_image2.png"));
-            //item.Content = img;
+            SetSVHouseImage(item, DEFAULT_HOUSE);
 
             item.Center = p;
             item.Orientation = 0;
@@ -258,5 +261,18 @@ namespace Urban_Planning_Simulation
             button.Height = size;
             button.Width = size;
         }
+
+        // Sets the image of the house ScatterView based on which type of house is selected
+        private void SetSVHouseImage(ScatterViewItem sv, int type)
+        {
+            if (type == 1)
+            {
+                BitmapImage img = new BitmapImage(new Uri("Resources/iso_house_1.png", UriKind.Relative));
+                ImageBrush imgBrush = new ImageBrush();
+                imgBrush.ImageSource = img;
+                sv.Background = imgBrush;
+            }
+        }
+        
     }
 }
