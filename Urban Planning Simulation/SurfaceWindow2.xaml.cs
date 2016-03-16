@@ -143,7 +143,7 @@ namespace Urban_Planning_Simulation
 
                 // Setting the ScatterView image background
                 ScatterViewItem item = new ScatterViewItem();
-                SetSVHouseImage(item, DEFAULT_HOUSE);
+                item = SetSVHouseImage(DEFAULT_HOUSE);
 
                 item.Center = mousePosition;
                 item.Orientation = 0;
@@ -163,7 +163,7 @@ namespace Urban_Planning_Simulation
 
             // Setting the ScatterView image background
             ScatterViewItem item = new ScatterViewItem();
-            SetSVHouseImage(item, DEFAULT_HOUSE);
+            item = SetSVHouseImage(DEFAULT_HOUSE);
 
             item.Center = p;
             item.Orientation = 0;
@@ -263,15 +263,19 @@ namespace Urban_Planning_Simulation
         }
 
         // Sets the image of the house ScatterView based on which type of house is selected
-        private void SetSVHouseImage(ScatterViewItem sv, int type)
+        private ScatterViewItem SetSVHouseImage(int type)
         {
+            ScatterViewItem item = new ScatterViewItem();
+
             if (type == 1)
             {
                 BitmapImage img = new BitmapImage(new Uri("Resources/iso_house_1.png", UriKind.Relative));
                 ImageBrush imgBrush = new ImageBrush();
                 imgBrush.ImageSource = img;
-                sv.Background = imgBrush;
+                item.Background = imgBrush;
             }
+
+            return item;
         }
         
     }
