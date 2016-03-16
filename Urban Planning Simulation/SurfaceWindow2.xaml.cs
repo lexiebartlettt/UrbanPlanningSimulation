@@ -27,6 +27,7 @@ namespace Urban_Planning_Simulation
         static int DEFAULT_HOUSE = 1;
 
         private Boolean canPlaceHouse;
+        private Boolean canPlaceRoad;
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -155,20 +156,22 @@ namespace Urban_Planning_Simulation
         // For hold gestures
         private void gesturebox_HoldGesture(object sender, TouchEventArgs e)
         {
-            e.Handled = true;
-            MainPanel.UpdateLayout();
-            Point p = e.TouchDevice.GetPosition(this);
-            p.X += MainPanel.HorizontalOffset;
-            p.Y += MainPanel.VerticalOffset;
+            if (canPlaceHouse)
+            {
+                e.Handled = true;
+                MainPanel.UpdateLayout();
+                Point p = e.TouchDevice.GetPosition(this);
+                p.X += MainPanel.HorizontalOffset;
+                p.Y += MainPanel.VerticalOffset;
 
-            // Setting the ScatterView image background
-            ScatterViewItem item = new ScatterViewItem();
-            SetSVHouseImage(item, DEFAULT_HOUSE);
+                // Setting the ScatterView image background
+                ScatterViewItem item = new ScatterViewItem();
+                SetSVHouseImage(item, DEFAULT_HOUSE);
 
-            item.Center = p;
-            item.Orientation = 0;
-            MainScatterview.Items.Add(item);
-            //item.BringIntoView();
+                item.Center = p;
+                item.Orientation = 0;
+                MainScatterview.Items.Add(item);
+            }
         }
 
         // When tag is detected
