@@ -23,6 +23,8 @@ namespace Urban_Planning_Simulation
     /// </summary>
     public partial class SurfaceWindow2 : SurfaceWindow
     {
+
+        private Boolean canPlaceHouse;
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -40,6 +42,7 @@ namespace Urban_Planning_Simulation
             MainPanel.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             MainPanel.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
             MainPanel.PanningMode = PanningMode.None;
+            canPlaceHouse = true;
 
             // Initialize button panels
             InitializePanels();
@@ -120,6 +123,7 @@ namespace Urban_Planning_Simulation
             RoadBorder.BorderThickness = new Thickness(1);
             FreeRoamBorder.BorderThickness = new Thickness(1);
             MainPanel.PanningMode = PanningMode.None;
+            canPlaceHouse = true;
             //MessageBox.Show("House");
            
         }
@@ -127,20 +131,23 @@ namespace Urban_Planning_Simulation
         // For mouse clicks
         private void Click(object sender, MouseButtonEventArgs e)
         {
-            e.Handled = true;
-            MainPanel.UpdateLayout();
-            Point mousePosition = e.GetPosition(this);
-            mousePosition.X += MainPanel.HorizontalOffset;
-            mousePosition.Y += MainPanel.VerticalOffset;
-            ScatterViewItem item = new ScatterViewItem();
-            //Image img = new BitmapImage(new Uri("C:\Users\Nic\Documents\key_image2.png"));
-            //item.Content = img;
+            if (canPlaceHouse)
+            {
+                e.Handled = true;
+                MainPanel.UpdateLayout();
+                Point mousePosition = e.GetPosition(this);
+                mousePosition.X += MainPanel.HorizontalOffset;
+                mousePosition.Y += MainPanel.VerticalOffset;
+                ScatterViewItem item = new ScatterViewItem();
+                //Image img = new BitmapImage(new Uri("C:\Users\Nic\Documents\key_image2.png"));
+                //item.Content = img;
 
-            
-            item.Center = mousePosition;
-            item.Orientation = 0;
-            MainScatterview.Items.Add(item);
-            //item.BringIntoView();
+
+                item.Center = mousePosition;
+                item.Orientation = 0;
+                MainScatterview.Items.Add(item);
+                //item.BringIntoView();
+            }
         }
 
         // For hold gestures
@@ -186,6 +193,7 @@ namespace Urban_Planning_Simulation
             RoadBorder.BorderThickness = new Thickness(5);
             FreeRoamBorder.BorderThickness = new Thickness(1);
             MainPanel.PanningMode = PanningMode.None;
+            canPlaceHouse = false;
             //MessageBox.Show("Road");
         }
 
@@ -197,6 +205,7 @@ namespace Urban_Planning_Simulation
             RoadBorder.BorderThickness = new Thickness(1);
             FreeRoamBorder.BorderThickness = new Thickness(5);
             MainPanel.PanningMode = PanningMode.Both;
+            canPlaceHouse = false;
             //MessageBox.Show("Free Roam");
         }
 
