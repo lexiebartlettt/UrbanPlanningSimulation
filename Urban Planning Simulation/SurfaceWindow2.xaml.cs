@@ -28,6 +28,7 @@ namespace Urban_Planning_Simulation
 
         private Boolean canPlaceHouse;
         private Boolean canPlaceRoad;
+        private List<ScatterViewItem> redoList = new List<ScatterViewItem>();
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -136,6 +137,7 @@ namespace Urban_Planning_Simulation
         {
             if (canPlaceHouse)
             {
+                redoList = new List<ScatterViewItem>();
                 e.Handled = true;
                 MainPanel.UpdateLayout();
                 Point mousePosition = e.GetPosition(this);
@@ -158,6 +160,7 @@ namespace Urban_Planning_Simulation
         {
             if (canPlaceHouse)
             {
+                redoList = new List<ScatterViewItem>();
                 e.Handled = true;
                 MainPanel.UpdateLayout();
                 Point p = e.TouchDevice.GetPosition(this);
@@ -220,6 +223,7 @@ namespace Urban_Planning_Simulation
         {   int count = MainScatterview.Items.Count;
             if (count > 0)
             {
+                redoList.Add((ScatterViewItem)MainScatterview.Items[count - 1]);
                 MainScatterview.Items.RemoveAt(count-1);
             }
         }
@@ -227,12 +231,19 @@ namespace Urban_Planning_Simulation
         // When redo button is clicked
         private void RedoButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Redo");
+            if (redoList.Count > 0)
+            {
+                int count = redoList.Count;
+                MainScatterview.Items.Add((ScatterViewItem)redoList[count-1]);
+                redoList.Remove((ScatterViewItem)redoList[count-1]);
+            }
+            //MessageBox.Show("Redo");
         }
 
         // When clear button is clicked
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
+            redoList = new List<ScatterViewItem>();
             MainScatterview.Items.Clear();
         }
 
