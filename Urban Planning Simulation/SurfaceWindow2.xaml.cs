@@ -23,11 +23,13 @@ namespace Urban_Planning_Simulation
     /// </summary>
     public partial class SurfaceWindow2 : SurfaceWindow
     {
-
-        static int DEFAULT_HOUSE = 1;
-
+        // Flags for the current mode
         private Boolean canPlaceHouse;
         private Boolean canPlaceRoad;
+
+        // Current selected types
+        private String houseType = "HouseEMI";
+
         private List<ScatterViewItem> redoList = new List<ScatterViewItem>();
         /// <summary>
         /// Default constructor.
@@ -127,9 +129,11 @@ namespace Urban_Planning_Simulation
             RoadBorder.BorderThickness = new Thickness(1);
             FreeRoamBorder.BorderThickness = new Thickness(1);
             MainPanel.PanningMode = PanningMode.None;
+
+            // Set house flag and house type
+            ElementMenuItem button = (ElementMenuItem)sender;
             canPlaceHouse = true;
-            //MessageBox.Show("House");
-           
+            houseType = button.Name;
         }
 
         // For mouse clicks
@@ -146,7 +150,7 @@ namespace Urban_Planning_Simulation
 
                 // Setting the ScatterView image background
                 ScatterViewItem item = new ScatterViewItem();
-                SetSVHouseImage(item, DEFAULT_HOUSE);
+                item = SetSVHouseImage(item, houseType);
 
                 item.Center = mousePosition;
                 item.Orientation = 0;
@@ -169,7 +173,7 @@ namespace Urban_Planning_Simulation
 
                 // Setting the ScatterView image background
                 ScatterViewItem item = new ScatterViewItem();
-                SetSVHouseImage(item, DEFAULT_HOUSE);
+                item = SetSVHouseImage(item, houseType);
 
                 item.Center = p;
                 item.Orientation = 0;
@@ -277,15 +281,30 @@ namespace Urban_Planning_Simulation
         }
 
         // Sets the image of the house ScatterView based on which type of house is selected
-        private void SetSVHouseImage(ScatterViewItem sv, int type)
+        private ScatterViewItem SetSVHouseImage(ScatterViewItem sv, String type)
         {
-            if (type == 1)
+
+            ScatterViewItem item = new ScatterViewItem();
+            BitmapImage img = new BitmapImage();
+
+            if (type.Equals("HouseEMI", StringComparison.Ordinal))
             {
-                BitmapImage img = new BitmapImage(new Uri("Resources/iso_house_1.png", UriKind.Relative));
-                ImageBrush imgBrush = new ImageBrush();
-                imgBrush.ImageSource = img;
-                sv.Background = imgBrush;
+                img = new BitmapImage(new Uri("Resources/iso_house_1.png", UriKind.Relative));
+
+            } else if (type.Equals("BuildingEMI", StringComparison.Ordinal)) 
+            {
+                img = new BitmapImage(new Uri("Resources/iso_building_1.png", UriKind.Relative));
             }
+            else if (type.Equals("SkyscraperEMI", StringComparison.Ordinal)) 
+            {
+                img = new BitmapImage(new Uri("Resources/iso_skyscraper_1.png", UriKind.Relative));
+            }
+
+            ImageBrush imgBrush = new ImageBrush();
+            imgBrush.ImageSource = img;
+            item.Background = imgBrush;
+
+            return item;
         }
         
     }

@@ -114,7 +114,8 @@ namespace Urban_Planning_Simulation
         // Called when "Test Mode" button is clicked
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Run Test Mode");
+            ElementMenuItem option = (ElementMenuItem) sender;
+            MessageBox.Show(option.Name);
         }
     }
 }

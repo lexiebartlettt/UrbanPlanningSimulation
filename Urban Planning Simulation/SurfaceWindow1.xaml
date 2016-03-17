@@ -23,8 +23,8 @@
                 Name="StartMenu"
                 ActivationMode="HostInteraction" 
                 ActivationHost="{Binding ElementName=StartMenuLabel}">
-                    <s:ElementMenuItem Header="Open Mode" Click="Start_Click"/>
-                    <s:ElementMenuItem Header="Test Mode" Click="TestButton_Click"/>
+                    <s:ElementMenuItem Name="OpenMode"  Header="Open Mode" Click="Start_Click"/>
+                    <s:ElementMenuItem Name="TestMode"  Header="Test Mode" Click="TestButton_Click"/>
             </s:ElementMenu>
         </Grid>
   	</StackPanel>

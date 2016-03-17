@@ -22,8 +22,18 @@
     </s:SurfaceScrollViewer>
     <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,35,35">
   		<Border x:Name="HouseBorder" BorderThickness="1" BorderBrush="Black" d:LayoutOverrides="Height">
-  			<s:SurfaceButton x:Name="HouseButton" Click="HouseButton_Click" Content="House" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-  		</Border>
+            <Grid>
+                <s:SurfaceButton x:Name="HouseButton" Content="House" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                <s:ElementMenu
+                    Name="HouseMenu"
+                    ActivationMode="HostInteraction" 
+                    ActivationHost="{Binding ElementName=HouseButton}">
+                    <s:ElementMenuItem Name="HouseEMI"  Header="House" Click="HouseButton_Click"/>
+                    <s:ElementMenuItem Name="BuildingEMI"  Header="Building" Click="HouseButton_Click"/>
+                    <s:ElementMenuItem Name="SkyscraperEMI"  Header="Skyscraper" Click="HouseButton_Click"/>
+                </s:ElementMenu>
+            </Grid>
+        </Border>
 		<s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
 		<Border x:Name="RoadBorder" BorderThickness="1" BorderBrush="Black">
 			<s:SurfaceButton x:Name="RoadButton" Click="RoadButton_Click" Content="Road" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
