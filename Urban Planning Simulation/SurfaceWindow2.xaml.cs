@@ -37,7 +37,8 @@ namespace Urban_Planning_Simulation
         public SurfaceWindow2()
         {
             InitializeComponent();
-
+            inkCanvas1.IsEnabled = false;
+            inkCanvas1.Visibility = System.Windows.Visibility.Hidden;
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
 
@@ -124,6 +125,7 @@ namespace Urban_Planning_Simulation
         // When house button is clicked
         private void HouseButton_Click(object sender, RoutedEventArgs e)
         {
+            inkCanvas1.IsEnabled = false;
             // Change thickness to depict you are in that mode
             HouseBorder.BorderThickness = new Thickness(5);
             RoadBorder.BorderThickness = new Thickness(1);
@@ -133,6 +135,7 @@ namespace Urban_Planning_Simulation
             // Set house flag and house type
             ElementMenuItem button = (ElementMenuItem)sender;
             canPlaceHouse = true;
+            canPlaceRoad = false;
             houseType = button.Name;
         }
 
@@ -141,6 +144,7 @@ namespace Urban_Planning_Simulation
         {
             if (canPlaceHouse)
             {
+                inkCanvas1.IsEnabled = false;
                 redoList = new List<ScatterViewItem>();
                 e.Handled = true;
                 MainPanel.UpdateLayout();
@@ -157,7 +161,12 @@ namespace Urban_Planning_Simulation
                 MainScatterview.Items.Add(item);
                 //item.BringIntoView();
             }
+            else if (canPlaceRoad)
+            {
+                inkCanvas1.IsEnabled = true;
+            }
         }
+        
 
         // For hold gestures
         private void gesturebox_HoldGesture(object sender, TouchEventArgs e)
@@ -207,18 +216,24 @@ namespace Urban_Planning_Simulation
             FreeRoamBorder.BorderThickness = new Thickness(1);
             MainPanel.PanningMode = PanningMode.None;
             canPlaceHouse = false;
+            canPlaceRoad = true;
+            inkCanvas1.IsEnabled = true;
+            inkCanvas1.Visibility = System.Windows.Visibility.Visible;
             //MessageBox.Show("Road");
         }
 
         // When free roam button is clicked
         private void FreeRoamButton_Click(object sender, RoutedEventArgs e)
         {
+            inkCanvas1.IsEnabled = false;
+            inkCanvas1.Visibility = System.Windows.Visibility.Hidden;
             // Change thickness to depict you are in that mode
             HouseBorder.BorderThickness = new Thickness(1);
             RoadBorder.BorderThickness = new Thickness(1);
             FreeRoamBorder.BorderThickness = new Thickness(5);
             MainPanel.PanningMode = PanningMode.Both;
             canPlaceHouse = false;
+            canPlaceRoad = false;
             //MessageBox.Show("Free Roam");
         }
 
