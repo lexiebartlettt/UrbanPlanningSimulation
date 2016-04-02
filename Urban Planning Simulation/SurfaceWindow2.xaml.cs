@@ -197,6 +197,24 @@ namespace Urban_Planning_Simulation
             switch (objectTag.VisualizedTag.Value)
             {
                 case 0:
+                    /*
+                    ImageBrush imgBrush = new ImageBrush();
+                    ScatterViewItem item = new ScatterViewItem();
+                    imgBrush.ImageSource = new BitmapImage(new Uri("Resources/iso_house_1.png", UriKind.Relative));
+                    item.Background = imgBrush;
+
+                    Uri uri = new Uri("Resources/iso_house_1.png", UriKind.Relative);
+                    BitmapImage source = new BitmapImage();
+                    source.BeginInit();
+                    source.UriSource = uri;
+                    source.DecodePixelHeight = (int)item.ActualHeight;
+                    source.DecodePixelWidth = (int)item.ActualWidth;
+                    source.EndInit();
+                    //ScatterViewItem item = new ScatterViewItem();
+                    //BitmapImage img = new BitmapImage();
+                    //img = new BitmapImage(new Uri("Resources/iso_house_1.png", UriKind.Relative));
+
+                    objectTag.structure.Source = source;*/
                     objectTag.HouseModel.Content = "HOUSE ADDED";
                     objectTag.myHouse.Fill = SurfaceColors.Accent1Brush;
                     break;
@@ -210,7 +228,48 @@ namespace Urban_Planning_Simulation
                     break;
                 default:
                     objectTag.HouseModel.Content = "UNKNOWN MODEL";
-                    objectTag.myHouse.Fill = SurfaceColors.ControlAccentBrush;
+                    objectTag.myHouse.Fill = SurfaceColors.Accent1Brush;
+                    break;
+            }
+        }
+
+        // When tag is removed, make scatterviewitem from last location
+        private void UrbanTagVisualizer_VisualizationRemoved(object sender, TagVisualizerEventArgs e)
+        {
+            TagVisualization1 objectTag = (TagVisualization1)e.TagVisualization;
+            switch (objectTag.VisualizedTag.Value)
+            {
+                // house
+                case 0:
+                    Point p = objectTag.Center;
+                    ScatterViewItem item = new ScatterViewItem();
+
+                    item = SetSVHouseImage(item, "HouseEMI");
+                    item.Center = p;
+                    item.Orientation = 0;
+                    MainScatterview.Items.Add(item);
+                    break;
+                // building
+                case 1:
+                    p = objectTag.Center;
+                    item = new ScatterViewItem();
+
+                    item = SetSVHouseImage(item, "BuildingEMI");
+                    item.Center = p;
+                    item.Orientation = 0;
+                    MainScatterview.Items.Add(item);
+                    break;
+                // skyscraper
+                case 2:
+                    p = objectTag.Center;
+                    item = new ScatterViewItem();
+
+                    item = SetSVHouseImage(item, "SkyscraperEMI");
+                    item.Center = p;
+                    item.Orientation = 0;
+                    MainScatterview.Items.Add(item);
+                    break;
+                default:
                     break;
             }
         }
@@ -329,6 +388,5 @@ namespace Urban_Planning_Simulation
 
             return item;
         }
-        
     }
 }

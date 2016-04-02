@@ -56,6 +56,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Bitmap.cs" />
+    <Compile Include="ImageAttributes.cs" />
     <Compile Include="SurfaceWindow2.xaml.cs">
       <DependentUpon>SurfaceWindow2.xaml</DependentUpon>
     </Compile>

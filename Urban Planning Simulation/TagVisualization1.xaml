@@ -4,9 +4,16 @@
     xmlns:s="http://schemas.microsoft.com/surface/2008"
     Loaded="TagVisualization1_Loaded">
     <Grid>
+        <Image Name="structure"
+               HorizontalAlignment="Stretch" 
+               VerticalAlignment="Stretch"
+               />
         <Rectangle Name="myHouse"
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Stretch"/>
+               Height="100"
+               Width="100"
+               HorizontalAlignment="Stretch" 
+               VerticalAlignment="Stretch"
+               />
         <Label Name="HouseModel" 
                Content="House" 
                HorizontalAlignment="Center" 
