@@ -1,6 +1,5 @@
 ﻿<!--TODO 
 - Change button contents to button images
-- Make sure the scatterview is the thing we need
 -->
 <s:SurfaceWindow x:Class="Urban_Planning_Simulation.SurfaceWindow2"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -11,56 +10,76 @@
     mc:Ignorable="d"
     Title="Urban_Planning_Simulation"
     Background="DarkGreen" d:DesignHeight="403" d:DesignWidth="779" SizeToContent="WidthAndHeight">
-  <Grid>
+  
+    <Grid>
 
+        <!-- Main ScrollViewer and Contents
+                - TagVisualizer
+                - SurfaceInkCanvas
+        -->
         <s:SurfaceScrollViewer  x:Name="MainPanel" MouseDoubleClick="Click" s:TouchExtensions.HoldGesture="gesturebox_HoldGesture" Margin="0,0,12,0">
-        <s:TagVisualizer x:Name="UrbanTagVisualizer" Height="8000" Width="8000" VisualizationAdded="UrbanTagVisualizer_VisualizationAdded" VisualizationRemoved="UrbanTagVisualizer_VisualizationRemoved">
-			<s:TagVisualizer.Definitions>
-                    <s:TagVisualizationDefinition x:Name="House" Value="0x00"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />
-                    <s:TagVisualizationDefinition x:Name="Building" Value="0x01"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />
-                    <s:TagVisualizationDefinition x:Name="Skyscraper" Value="0x02"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear" UsesTagOrientation="True" />
-			</s:TagVisualizer.Definitions>
-    		<s:ScatterView x:Name="MainScatterview" BorderBrush="LightGreen" BorderThickness="4"  />
-    	</s:TagVisualizer>
-    </s:SurfaceScrollViewer>
-        <s:SurfaceInkCanvas x:Name="inkCanvas1" Background="Transparent"/>
-        <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,35,35">
-  		<Border x:Name="HouseBorder" BorderThickness="1" BorderBrush="Black" d:LayoutOverrides="Height">
             <Grid>
-                <s:SurfaceButton x:Name="HouseButton" Content="House" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-                <s:ElementMenu
-                    Name="HouseMenu"
-                    ActivationMode="HostInteraction" 
-                    ActivationHost="{Binding ElementName=HouseButton}">
-                    <s:ElementMenuItem Name="HouseEMI"  Header="House" Click="HouseButton_Click"/>
-                    <s:ElementMenuItem Name="BuildingEMI"  Header="Building" Click="HouseButton_Click"/>
-                    <s:ElementMenuItem Name="SkyscraperEMI"  Header="Skyscraper" Click="HouseButton_Click"/>
-                </s:ElementMenu>
+                <s:TagVisualizer x:Name="UrbanTagVisualizer" Height="8000" Width="8000" VisualizationAdded="UrbanTagVisualizer_VisualizationAdded" VisualizationRemoved="UrbanTagVisualizer_VisualizationRemoved">
+                    <s:TagVisualizer.Definitions>
+                        <s:TagVisualizationDefinition x:Name="House" Value="0x00"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />
+                        <s:TagVisualizationDefinition x:Name="Building" Value="0x01"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />
+                        <s:TagVisualizationDefinition x:Name="Skyscraper" Value="0x02"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear" UsesTagOrientation="True" />
+                    </s:TagVisualizer.Definitions>
+                    <s:ScatterView x:Name="MainScatterview" BorderBrush="LightGreen" BorderThickness="4"  />
+                </s:TagVisualizer>
+
+                <s:SurfaceInkCanvas x:Name="inkCanvas1" Background="Transparent"/>
             </Grid>
-        </Border>
-            <s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
-		<Border x:Name="RoadBorder" BorderThickness="1" BorderBrush="Black">
-			<s:SurfaceButton x:Name="RoadButton" Click="RoadButton_Click" Content="Road" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-		</Border>
-		<s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
-		<Border x:Name="FreeRoamBorder" BorderThickness="1" BorderBrush="Black">
-	  		<s:SurfaceButton x:Name="FreeRoamButton" Click="FreeRoamButton_Click" Content="Free Roam" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-		</Border>
-    </StackPanel>
+        </s:SurfaceScrollViewer>
       
-  	<StackPanel x:Name="LeftButtons" HorizontalAlignment="Left" Margin="35,0,0,35" Orientation="Horizontal" VerticalAlignment="Bottom" MinHeight="0">
-  		<Border x:Name="UndoBorder" BorderThickness="1" BorderBrush="Black">
-  			<s:SurfaceButton x:Name="UndoButton" Click="UndoButton_Click" Content="Undo" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-  		</Border>
-		<s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
-		<Border x:Name="RedoBorder" BorderThickness="1" BorderBrush="Black">
-			<s:SurfaceButton x:Name="RedoButton" Click="RedoButton_Click" Content="Redo" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-  		</Border>
-		<s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
-		<Border x:Name="ClearBorder" BorderThickness="1" BorderBrush="Black">
-			<s:SurfaceButton x:Name="ClearButton" Click="ClearButton_Click" Content="Clear" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-  		</Border>
+        <!-- Left Button Set -->
+        <StackPanel x:Name="LeftButtons" HorizontalAlignment="Left" Margin="35,0,0,35" Orientation="Horizontal" VerticalAlignment="Bottom" MinHeight="0">
+            <!-- Undo Button -->
+      		<Border x:Name="UndoBorder" BorderThickness="1" BorderBrush="Black">
+      			<s:SurfaceButton x:Name="UndoButton" Click="UndoButton_Click" Content="Undo" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+      		</Border>
+            <!-- Spacing -->
+    		<s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
+            <!-- Redo Button -->
+    		<Border x:Name="RedoBorder" BorderThickness="1" BorderBrush="Black">
+    			<s:SurfaceButton x:Name="RedoButton" Click="RedoButton_Click" Content="Redo" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+      		</Border>
+            <!-- Spacing -->
+    		<s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
+            <!-- Clear Button -->
+    		<Border x:Name="ClearBorder" BorderThickness="1" BorderBrush="Black">
+    			<s:SurfaceButton x:Name="ClearButton" Click="ClearButton_Click" Content="Clear" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+      		</Border>
         </StackPanel>
 
+        <!-- Right Button Set -->
+        <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,35,35">
+            <!-- House Button ElementMenu -->
+            <Border x:Name="HouseBorder" BorderThickness="1" BorderBrush="Black" d:LayoutOverrides="Height">
+                <Grid>
+                    <s:SurfaceButton x:Name="HouseButton" Content="House" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                    <s:ElementMenu
+                        Name="HouseMenu"
+                        ActivationMode="HostInteraction" 
+                        ActivationHost="{Binding ElementName=HouseButton}">
+                        <s:ElementMenuItem Name="HouseEMI"  Header="House" Click="HouseButton_Click"/>
+                        <s:ElementMenuItem Name="BuildingEMI"  Header="Building" Click="HouseButton_Click"/>
+                        <s:ElementMenuItem Name="SkyscraperEMI"  Header="Skyscraper" Click="HouseButton_Click"/>
+                    </s:ElementMenu>
+                </Grid>
+            </Border>
+            <!-- Spacing -->
+            <s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
+            <!-- Road Button -->
+            <Border x:Name="RoadBorder" BorderThickness="1" BorderBrush="Black">
+                <s:SurfaceButton x:Name="RoadButton" Click="RoadButton_Click" Content="Road" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Border>
+            <!-- Spacing -->
+            <s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
+            <!-- Free Roam Button -->
+            <Border x:Name="FreeRoamBorder" BorderThickness="1" BorderBrush="Black">
+                <s:SurfaceButton x:Name="FreeRoamButton" Click="FreeRoamButton_Click" Content="Free Roam" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Border>
+        </StackPanel>
     </Grid>
 </s:SurfaceWindow>

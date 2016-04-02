@@ -38,7 +38,6 @@ namespace Urban_Planning_Simulation
         {
             InitializeComponent();
             inkCanvas1.IsEnabled = false;
-            inkCanvas1.Visibility = System.Windows.Visibility.Hidden;
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
 
@@ -126,6 +125,7 @@ namespace Urban_Planning_Simulation
         private void HouseButton_Click(object sender, RoutedEventArgs e)
         {
             inkCanvas1.IsEnabled = false;
+
             // Change thickness to depict you are in that mode
             HouseBorder.BorderThickness = new Thickness(5);
             RoadBorder.BorderThickness = new Thickness(1);
