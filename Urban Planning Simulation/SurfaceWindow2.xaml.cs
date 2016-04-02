@@ -18,47 +18,50 @@ using Microsoft.Surface.Presentation.Input;
 
 namespace Urban_Planning_Simulation
 {
-    /// <summary>
     /// Interaction logic for SurfaceWindow2.xaml
-    /// </summary>
     public partial class SurfaceWindow2 : SurfaceWindow
     {
+        // Constants for button type
+        int ROAD_BUTTON = 1;
+        int HOUSE_BUTTON = 2;
+        int FREE_BUTTON = 3;
+
         // Flags for the current mode
         private Boolean canPlaceHouse;
         private Boolean canPlaceRoad;
 
-        // Current selected types
+        // Set default mode type
         private String houseType = "HouseEMI";
 
+        // List for handling undo/redo
         private List<ScatterViewItem> redoList = new List<ScatterViewItem>();
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
+
         public SurfaceWindow2()
         {
+            // Initialize the layout
             InitializeComponent();
-            inkCanvas1.IsEnabled = false;
+
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
 
-            // Default to house mode
-            HouseBorder.BorderThickness = new Thickness(5);
+            // Start initial position and options for ScrollViewer
             MainPanel.ScrollToVerticalOffset(4000);
             MainPanel.ScrollToHorizontalOffset(4000);
             MainPanel.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             MainPanel.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
             MainPanel.PanningMode = PanningMode.None;
+
+            // Default to house mode
+            HouseBorder.BorderThickness = new Thickness(5);
             canPlaceHouse = true;
+            RoadCanvas.IsEnabled = false;
 
             // Initialize button panels
             InitializePanels();
 
         }
 
-        /// <summary>
         /// Occurs when the window is about to close. 
-        /// </summary>
-        /// <param name="e"></param>
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
@@ -67,9 +70,7 @@ namespace Urban_Planning_Simulation
             RemoveWindowAvailabilityHandlers();
         }
 
-        /// <summary>
         /// Adds handlers for window availability events.
-        /// </summary>
         private void AddWindowAvailabilityHandlers()
         {
             // Subscribe to surface window availability events
@@ -78,9 +79,7 @@ namespace Urban_Planning_Simulation
             ApplicationServices.WindowUnavailable += OnWindowUnavailable;
         }
 
-        /// <summary>
         /// Removes handlers for window availability events.
-        /// </summary>
         private void RemoveWindowAvailabilityHandlers()
         {
             // Unsubscribe from surface window availability events
@@ -89,21 +88,13 @@ namespace Urban_Planning_Simulation
             ApplicationServices.WindowUnavailable -= OnWindowUnavailable;
         }
 
-        /// <summary>
         /// This is called when the user can interact with the application's window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnWindowInteractive(object sender, EventArgs e)
         {
             //TODO: enable audio, animations here
         }
 
-        /// <summary>
         /// This is called when the user can see but not interact with the application's window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnWindowNoninteractive(object sender, EventArgs e)
         {
             //TODO: Disable audio here if it is enabled
@@ -111,32 +102,9 @@ namespace Urban_Planning_Simulation
             //TODO: optionally enable animations here
         }
 
-        /// <summary>
-        /// This is called when the application's window is not visible or interactive.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnWindowUnavailable(object sender, EventArgs e)
         {
             //TODO: disable audio, animations here
-        }
-
-        // When house button is clicked
-        private void HouseButton_Click(object sender, RoutedEventArgs e)
-        {
-            inkCanvas1.IsEnabled = false;
-
-            // Change thickness to depict you are in that mode
-            HouseBorder.BorderThickness = new Thickness(5);
-            RoadBorder.BorderThickness = new Thickness(1);
-            FreeRoamBorder.BorderThickness = new Thickness(1);
-            MainPanel.PanningMode = PanningMode.None;
-
-            // Set house flag and house type
-            ElementMenuItem button = (ElementMenuItem)sender;
-            canPlaceHouse = true;
-            canPlaceRoad = false;
-            houseType = button.Name;
         }
 
         // For mouse clicks
@@ -144,7 +112,7 @@ namespace Urban_Planning_Simulation
         {
             if (canPlaceHouse)
             {
-                inkCanvas1.IsEnabled = false;
+                RoadCanvas.IsEnabled = false;
                 redoList = new List<ScatterViewItem>();
                 e.Handled = true;
                 MainPanel.UpdateLayout();
@@ -163,7 +131,7 @@ namespace Urban_Planning_Simulation
             }
             else if (canPlaceRoad)
             {
-                inkCanvas1.IsEnabled = true;
+                RoadCanvas.IsEnabled = true;
             }
         }
         
@@ -274,34 +242,30 @@ namespace Urban_Planning_Simulation
             }
         }
 
+        //======================================================================
+        //                       Button Click Functions
+        //======================================================================
+
+        // When house button is clicked
+        private void HouseButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetButtonMode(HOUSE_BUTTON);
+
+            // Set house flag and house type
+            ElementMenuItem button = (ElementMenuItem) sender;
+            houseType = button.Name;
+        }
+
         // When road button is clicked
         private void RoadButton_Click(object sender, RoutedEventArgs e)
         {
-            // Change thickness to depict you are in that mode
-            HouseBorder.BorderThickness = new Thickness(1);
-            RoadBorder.BorderThickness = new Thickness(5);
-            FreeRoamBorder.BorderThickness = new Thickness(1);
-            MainPanel.PanningMode = PanningMode.None;
-            canPlaceHouse = false;
-            canPlaceRoad = true;
-            inkCanvas1.IsEnabled = true;
-            inkCanvas1.Visibility = System.Windows.Visibility.Visible;
-            //MessageBox.Show("Road");
+            SetButtonMode(ROAD_BUTTON);
         }
 
         // When free roam button is clicked
         private void FreeRoamButton_Click(object sender, RoutedEventArgs e)
         {
-            inkCanvas1.IsEnabled = false;
-            inkCanvas1.Visibility = System.Windows.Visibility.Hidden;
-            // Change thickness to depict you are in that mode
-            HouseBorder.BorderThickness = new Thickness(1);
-            RoadBorder.BorderThickness = new Thickness(1);
-            FreeRoamBorder.BorderThickness = new Thickness(5);
-            MainPanel.PanningMode = PanningMode.Both;
-            canPlaceHouse = false;
-            canPlaceRoad = false;
-            //MessageBox.Show("Free Roam");
+            SetButtonMode(FREE_BUTTON);
         }
 
         // When undo button is clicked
@@ -323,7 +287,6 @@ namespace Urban_Planning_Simulation
                 MainScatterview.Items.Add((ScatterViewItem)redoList[count-1]);
                 redoList.Remove((ScatterViewItem)redoList[count-1]);
             }
-            //MessageBox.Show("Redo");
         }
 
         // When clear button is clicked
@@ -360,6 +323,33 @@ namespace Urban_Planning_Simulation
         {
             button.Height = size;
             button.Width = size;
+        }
+
+        private void SetButtonMode(int button)
+        {
+            HouseBorder.BorderThickness = new Thickness(1);
+            RoadBorder.BorderThickness = new Thickness(1);
+            FreeRoamBorder.BorderThickness = new Thickness(1);
+            MainPanel.PanningMode = PanningMode.Both;
+
+            if (button == ROAD_BUTTON)
+            {
+                RoadBorder.BorderThickness = new Thickness(5);
+                RoadCanvas.IsEnabled = true;
+                canPlaceHouse = false;
+                canPlaceRoad = true;
+            } else if (button == HOUSE_BUTTON) {
+                HouseBorder.BorderThickness = new Thickness(5);
+                RoadCanvas.IsEnabled = false;
+                canPlaceHouse = true;
+                canPlaceRoad = false;
+            } else if (button == FREE_BUTTON) {
+                FreeRoamBorder.BorderThickness = new Thickness(5);
+                RoadCanvas.IsEnabled = false;
+                canPlaceHouse = false;
+                canPlaceRoad = false;
+            }
+
         }
 
         // Sets the image of the house ScatterView based on which type of house is selected
