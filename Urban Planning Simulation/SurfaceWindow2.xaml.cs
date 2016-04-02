@@ -200,6 +200,14 @@ namespace Urban_Planning_Simulation
                     objectTag.HouseModel.Content = "HOUSE ADDED";
                     objectTag.myHouse.Fill = SurfaceColors.Accent1Brush;
                     break;
+                case 1:
+                    objectTag.HouseModel.Content = "BUILDING ADDED";
+                    objectTag.myHouse.Fill = SurfaceColors.Accent1Brush;
+                    break;
+                case 2:
+                    objectTag.HouseModel.Content = "SKYSCRAPER ADDED";
+                    objectTag.myHouse.Fill = SurfaceColors.Accent1Brush;
+                    break;
                 default:
                     objectTag.HouseModel.Content = "UNKNOWN MODEL";
                     objectTag.myHouse.Fill = SurfaceColors.ControlAccentBrush;

@@ -16,7 +16,9 @@
         <s:SurfaceScrollViewer  x:Name="MainPanel" MouseDoubleClick="Click" s:TouchExtensions.HoldGesture="gesturebox_HoldGesture" Margin="0,0,12,0">
         <s:TagVisualizer x:Name="UrbanTagVisualizer" Height="8000" Width="8000" VisualizationAdded="UrbanTagVisualizer_VisualizationAdded">
 			<s:TagVisualizer.Definitions>
-                    <s:TagVisualizationDefinition x:Name="House" Value="0x00"  Source="TagVisualization1.xaml" LostTagTimeout="2000" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="2,2" TagRemovedBehavior="Fade" UsesTagOrientation="True" />
+                    <s:TagVisualizationDefinition x:Name="House" Value="0x00"  Source="TagVisualization1.xaml" LostTagTimeout="2000" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />
+                    <s:TagVisualizationDefinition x:Name="Building" Value="0x01"  Source="TagVisualization1.xaml" LostTagTimeout="2000" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />
+                    <s:TagVisualizationDefinition x:Name="Skyscraper" Value="0x02"  Source="TagVisualization1.xaml" LostTagTimeout="2000" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear" UsesTagOrientation="True" />
 			</s:TagVisualizer.Definitions>
     		<s:ScatterView x:Name="MainScatterview" BorderBrush="LightGreen" BorderThickness="4"  />
     	</s:TagVisualizer>
