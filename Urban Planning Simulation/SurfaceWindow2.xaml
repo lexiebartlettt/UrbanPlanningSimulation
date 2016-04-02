@@ -28,7 +28,7 @@
                     <s:ScatterView x:Name="MainScatterview" BorderBrush="LightGreen" BorderThickness="4"  />
                 </s:TagVisualizer>
 
-                <s:SurfaceInkCanvas x:Name="RoadCanvas" Background="Transparent"/>
+                <s:SurfaceInkCanvas x:Name="RoadCanvas" Background="Transparent" StrokeCollected="InkCanvas_StrokeCollected"/>
             </Grid>
         </s:SurfaceScrollViewer>
       

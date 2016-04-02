@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Ink;
 using Microsoft.Surface;
 using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
@@ -34,7 +35,7 @@ namespace Urban_Planning_Simulation
         private String houseType = "HouseEMI";
 
         // List for handling undo/redo
-        private List<ScatterViewItem> redoList = new List<ScatterViewItem>();
+        private List<Object> redoList = new List<Object>();
 
         public SurfaceWindow2()
         {
@@ -107,13 +108,23 @@ namespace Urban_Planning_Simulation
             //TODO: disable audio, animations here
         }
 
+        // Handles event for completion of stroke on InkCanvas
+        private void InkCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
+        {
+            MainScatterview.Items.Add(e.Stroke);
+            // if (((SurfaceInkCanvas)e.Source).Strokes.Count % 2 == 0)
+            // {
+            //     e.Stroke.DrawingAttributes.Color = Colors.Blue;
+            // }
+        }
+
         // For mouse clicks
         private void Click(object sender, MouseButtonEventArgs e)
         {
             if (canPlaceHouse)
             {
                 RoadCanvas.IsEnabled = false;
-                redoList = new List<ScatterViewItem>();
+                redoList = new List<Object>();
                 e.Handled = true;
                 MainPanel.UpdateLayout();
                 Point mousePosition = e.GetPosition(this);
@@ -127,7 +138,6 @@ namespace Urban_Planning_Simulation
                 item.Center = mousePosition;
                 item.Orientation = 0;
                 MainScatterview.Items.Add(item);
-                //item.BringIntoView();
             }
             else if (canPlaceRoad)
             {
@@ -141,7 +151,7 @@ namespace Urban_Planning_Simulation
         {
             if (canPlaceHouse)
             {
-                redoList = new List<ScatterViewItem>();
+                redoList = new List<Object>();
                 e.Handled = true;
                 MainPanel.UpdateLayout();
                 Point p = e.TouchDevice.GetPosition(this);
@@ -270,10 +280,19 @@ namespace Urban_Planning_Simulation
 
         // When undo button is clicked
         private void UndoButton_Click(object sender, RoutedEventArgs e)
-        {   int count = MainScatterview.Items.Count;
+        {
+            int count = MainScatterview.Items.Count;
+
             if (count > 0)
             {
-                redoList.Add((ScatterViewItem)MainScatterview.Items[count - 1]);
+                Object mostRecentItem = MainScatterview.Items[count - 1];
+                if (mostRecentItem.GetType() == typeof(Stroke)) 
+                {
+                    redoList.Add((Stroke) mostRecentItem);
+                    RoadCanvas.Strokes.Remove((Stroke) mostRecentItem);
+                } else if (mostRecentItem.GetType() == typeof(ScatterViewItem)) {
+                    redoList.Add((ScatterViewItem) mostRecentItem);
+                }
                 MainScatterview.Items.RemoveAt(count-1);
             }
         }
@@ -281,19 +300,28 @@ namespace Urban_Planning_Simulation
         // When redo button is clicked
         private void RedoButton_Click(object sender, RoutedEventArgs e)
         {
-            if (redoList.Count > 0)
+            int count = redoList.Count;
+            if (count > 0)
             {
-                int count = redoList.Count;
-                MainScatterview.Items.Add((ScatterViewItem)redoList[count-1]);
-                redoList.Remove((ScatterViewItem)redoList[count-1]);
+                Object mostRecentItem = redoList[count - 1];
+                if (mostRecentItem.GetType() == typeof(Stroke)) 
+                {
+                    redoList.Remove((Stroke) mostRecentItem);
+                    RoadCanvas.Strokes.Add((Stroke) mostRecentItem);
+                    MainScatterview.Items.Add((Stroke) mostRecentItem);
+                } else if (mostRecentItem.GetType() == typeof(ScatterViewItem)) {
+                    redoList.Remove((ScatterViewItem) mostRecentItem);
+                    MainScatterview.Items.Add((ScatterViewItem) mostRecentItem);
+                }
             }
         }
 
         // When clear button is clicked
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            redoList = new List<ScatterViewItem>();
+            redoList = new List<Object>();
             MainScatterview.Items.Clear();
+            RoadCanvas.Strokes.Clear();
         }
 
         //======================================================================
