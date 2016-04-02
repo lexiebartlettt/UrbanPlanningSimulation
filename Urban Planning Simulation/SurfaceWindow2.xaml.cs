@@ -60,6 +60,9 @@ namespace Urban_Planning_Simulation
             // Initialize button panels
             InitializePanels();
 
+            // Initialize InkCanvas Settings
+            InitializeInkCanvas();
+
         }
 
         /// Occurs when the window is about to close. 
@@ -108,14 +111,14 @@ namespace Urban_Planning_Simulation
             //TODO: disable audio, animations here
         }
 
+        //======================================================================
+        //                       Canvas Functions
+        //======================================================================
+
         // Handles event for completion of stroke on InkCanvas
         private void InkCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
         {
             MainScatterview.Items.Add(e.Stroke);
-            // if (((SurfaceInkCanvas)e.Source).Strokes.Count % 2 == 0)
-            // {
-            //     e.Stroke.DrawingAttributes.Color = Colors.Blue;
-            // }
         }
 
         // For mouse clicks
@@ -167,6 +170,10 @@ namespace Urban_Planning_Simulation
                 MainScatterview.Items.Add(item);
             }
         }
+
+        //======================================================================
+        //                       TagVisualizer Functions
+        //======================================================================
 
         // When tag is detected
         private void UrbanTagVisualizer_VisualizationAdded(object sender, TagVisualizerEventArgs e)
@@ -346,6 +353,16 @@ namespace Urban_Planning_Simulation
             SetButtonSize(ClearButton, WindowHeight / 10);
         }
 
+        // Sets the settings for the road InkCanvas
+        private void InitializeInkCanvas()
+        {
+            RoadCanvas.DefaultDrawingAttributes.Color = Colors.DarkGray;
+            RoadCanvas.DefaultDrawingAttributes.FitToCurve = true;
+            RoadCanvas.DefaultDrawingAttributes.Height = 30;
+            RoadCanvas.DefaultDrawingAttributes.Width = 15;
+            RoadCanvas.UsesTouchShape = false;
+        }
+
         // Sets the passed button's width and height to be equal to size.
         private void SetButtonSize(SurfaceButton button, Double size)
         {
@@ -383,7 +400,6 @@ namespace Urban_Planning_Simulation
         // Sets the image of the house ScatterView based on which type of house is selected
         private ScatterViewItem SetSVHouseImage(ScatterViewItem sv, String type)
         {
-
             ScatterViewItem item = new ScatterViewItem();
             BitmapImage img = new BitmapImage();
 
