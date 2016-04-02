@@ -25,10 +25,10 @@
                         <s:TagVisualizationDefinition x:Name="Building" Value="0x01"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />
                         <s:TagVisualizationDefinition x:Name="Skyscraper" Value="0x02"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear" UsesTagOrientation="True" />
                     </s:TagVisualizer.Definitions>
-                    <s:ScatterView x:Name="MainScatterview" BorderBrush="LightGreen" BorderThickness="4"  />
                 </s:TagVisualizer>
 
                 <s:SurfaceInkCanvas x:Name="RoadCanvas" Background="Transparent" StrokeCollected="InkCanvas_StrokeCollected"/>
+                <s:ScatterView x:Name="MainScatterview" BorderBrush="LightGreen" BorderThickness="4"  />
             </Grid>
         </s:SurfaceScrollViewer>
       

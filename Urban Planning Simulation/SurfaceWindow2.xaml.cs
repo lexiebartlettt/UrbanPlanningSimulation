@@ -358,8 +358,10 @@ namespace Urban_Planning_Simulation
         {
             RoadCanvas.DefaultDrawingAttributes.Color = Colors.DarkGray;
             RoadCanvas.DefaultDrawingAttributes.FitToCurve = true;
-            RoadCanvas.DefaultDrawingAttributes.Height = 30;
-            RoadCanvas.DefaultDrawingAttributes.Width = 15;
+            RoadCanvas.DefaultDrawingAttributes.IgnorePressure = true;
+            RoadCanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Rectangle;
+            RoadCanvas.DefaultDrawingAttributes.Height = 20;
+            RoadCanvas.DefaultDrawingAttributes.Width = 20;
             RoadCanvas.UsesTouchShape = false;
         }
 
