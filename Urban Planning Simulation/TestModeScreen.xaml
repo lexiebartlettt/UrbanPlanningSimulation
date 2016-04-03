@@ -1,0 +1,14 @@
+﻿<s:SurfaceWindow x:Class="Urban_Planning_Simulation.TestModeScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="http://schemas.microsoft.com/surface/2008"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d"
+    Title="UBS: Test Mode"
+    Background="DarkGreen" d:DesignHeight="403" d:DesignWidth="779" SizeToContent="WidthAndHeight"
+    >
+  <Grid>
+      
+  </Grid>
+</s:SurfaceWindow>

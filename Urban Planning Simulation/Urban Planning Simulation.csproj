@@ -56,13 +56,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SurfaceWindow2.xaml.cs">
-      <DependentUpon>SurfaceWindow2.xaml</DependentUpon>
+    <Compile Include="OpenModeScreen.xaml.cs">
+      <DependentUpon>OpenModeScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestModeScreen.xaml.cs">
+      <DependentUpon>TestModeScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="TagVisualization1.xaml.cs">
       <DependentUpon>TagVisualization1.xaml</DependentUpon>
     </Compile>
-    <Page Include="SurfaceWindow1.xaml">
+    <Page Include="MainScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -70,11 +73,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SurfaceWindow1.xaml.cs">
-      <DependentUpon>SurfaceWindow1.xaml</DependentUpon>
+    <Compile Include="MainScreen.xaml.cs">
+      <DependentUpon>MainScreen.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SurfaceWindow2.xaml">
+    <Page Include="OpenModeScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestModeScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

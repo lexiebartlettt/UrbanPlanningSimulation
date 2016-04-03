@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" 
-    x:Class="Urban_Planning_Simulation.SurfaceWindow1"
-    Title="Urban_Planning_Simulation" 
+    x:Class="Urban_Planning_Simulation.MainScreen"
+    Title="Urban Planning Simulation" 
     Background="DarkGreen"
     >
   <Grid>

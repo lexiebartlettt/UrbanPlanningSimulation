@@ -18,15 +18,11 @@ using Microsoft.Surface.Presentation.Input;
 
 namespace Urban_Planning_Simulation
 {
-    /// <summary>
-    /// Interaction logic for SurfaceWindow1.xaml
-    /// </summary>
-    public partial class SurfaceWindow1 : SurfaceWindow
+    // Interaction logic for TestModeScreen.xaml
+    public partial class TestModeScreen : SurfaceWindow
     {
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public SurfaceWindow1()
+        // Default constructor.
+        public TestModeScreen()
         {
             InitializeComponent();
 
@@ -34,10 +30,7 @@ namespace Urban_Planning_Simulation
             AddWindowAvailabilityHandlers();
         }
 
-        /// <summary>
-        /// Occurs when the window is about to close. 
-        /// </summary>
-        /// <param name="e"></param>
+        // Occurs when the window is about to close. 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
@@ -46,9 +39,7 @@ namespace Urban_Planning_Simulation
             RemoveWindowAvailabilityHandlers();
         }
 
-        /// <summary>
-        /// Adds handlers for window availability events.
-        /// </summary>
+        // Adds handlers for window availability events.
         private void AddWindowAvailabilityHandlers()
         {
             // Subscribe to surface window availability events
@@ -57,9 +48,7 @@ namespace Urban_Planning_Simulation
             ApplicationServices.WindowUnavailable += OnWindowUnavailable;
         }
 
-        /// <summary>
-        /// Removes handlers for window availability events.
-        /// </summary>
+        // Removes handlers for window availability events.
         private void RemoveWindowAvailabilityHandlers()
         {
             // Unsubscribe from surface window availability events
@@ -68,21 +57,13 @@ namespace Urban_Planning_Simulation
             ApplicationServices.WindowUnavailable -= OnWindowUnavailable;
         }
 
-        /// <summary>
-        /// This is called when the user can interact with the application's window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        // This is called when the user can interact with the application's window.
         private void OnWindowInteractive(object sender, EventArgs e)
         {
             //TODO: enable audio, animations here
         }
 
-        /// <summary>
-        /// This is called when the user can see but not interact with the application's window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        // This is called when the user can see but not interact with the application's window.
         private void OnWindowNoninteractive(object sender, EventArgs e)
         {
             //TODO: Disable audio here if it is enabled
@@ -90,32 +71,10 @@ namespace Urban_Planning_Simulation
             //TODO: optionally enable animations here
         }
 
-        /// <summary>
-        /// This is called when the application's window is not visible or interactive.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        // This is called when the application's window is not visible or interactive.
         private void OnWindowUnavailable(object sender, EventArgs e)
         {
             //TODO: disable audio, animations here
-        }
-
-        // Called when the start button is clicked. Go to the main window we'll be using
-        // (probably a better way to do this than creating a new window but for now it works)
-        private void Start_Click(object sender, RoutedEventArgs e)
-        {
-            //MessageBox.Show("Go to main window");
-            SurfaceWindow2 mainWindow = new SurfaceWindow2();
-            mainWindow.Show();
-            // Don't need start window anymore (Maybe keep it open though?)
-            this.Close();
-        }
-
-        // Called when "Test Mode" button is clicked
-        private void TestButton_Click(object sender, RoutedEventArgs e)
-        {
-            ElementMenuItem option = (ElementMenuItem) sender;
-            MessageBox.Show(option.Name);
         }
     }
 }
