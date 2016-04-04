@@ -45,6 +45,9 @@ namespace Urban_Planning_Simulation
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
 
+            //Initialize Background
+            PanelBackground.Source = new BitmapImage(new Uri("Resources/grass.png", UriKind.Relative));
+
             // Start initial position and options for ScrollViewer
             MainPanel.ScrollToVerticalOffset(4000);
             MainPanel.ScrollToHorizontalOffset(4000);
