@@ -45,6 +45,9 @@ namespace Urban_Planning_Simulation
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
 
+            //Initialize Background
+            PanelBackground.Source = new BitmapImage(new Uri("Resources/grass.png", UriKind.Relative));
+
             // Start initial position and options for ScrollViewer
             MainPanel.ScrollToVerticalOffset(4000);
             MainPanel.ScrollToHorizontalOffset(4000);
@@ -276,6 +279,7 @@ namespace Urban_Planning_Simulation
         // When road button is clicked
         private void RoadButton_Click(object sender, RoutedEventArgs e)
         {
+            
             SetButtonMode(ROAD_BUTTON);
         }
 
@@ -353,6 +357,26 @@ namespace Urban_Planning_Simulation
             SetButtonSize(ClearButton, WindowHeight / 10);
         }
 
+        //sets movement/scale/rotation for buildings based on mode
+        private void setMovement(bool mov)
+        {
+            int count = MainScatterview.Items.Count;
+            if (count > 0)
+            {
+                foreach (Object item in MainScatterview.Items)
+                {
+                    if (item.GetType() == typeof(ScatterViewItem))
+                    {
+                        ScatterViewItem x = (ScatterViewItem)item;
+                        x.CanRotate = mov;
+                        x.CanScale = mov;
+                        x.CanMove = mov;
+                    }
+
+                }
+            }
+        }
+
         // Sets the settings for the road InkCanvas
         private void InitializeInkCanvas()
         {
@@ -385,16 +409,19 @@ namespace Urban_Planning_Simulation
                 RoadCanvas.IsEnabled = true;
                 canPlaceHouse = false;
                 canPlaceRoad = true;
+                setMovement(false);
             } else if (button == HOUSE_BUTTON) {
                 HouseBorder.BorderThickness = new Thickness(5);
                 RoadCanvas.IsEnabled = false;
                 canPlaceHouse = true;
                 canPlaceRoad = false;
+                setMovement(true);
             } else if (button == FREE_BUTTON) {
                 FreeRoamBorder.BorderThickness = new Thickness(5);
                 RoadCanvas.IsEnabled = false;
                 canPlaceHouse = false;
                 canPlaceRoad = false;
+                setMovement(false);
             }
 
         }
