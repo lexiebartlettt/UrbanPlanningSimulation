@@ -10,7 +10,30 @@
     >
     <Grid>
         <s:SurfaceTextBox Name="TestModeText" Background="Transparent" Foreground="Black" FontSize="40" Margin="0,50,0,0" BorderThickness="0" TextWrapping="Wrap" Focusable="False" Text="UBS: Test Mode" TextAlignment="Center" />
-        <s:SurfaceTextBox Name="TestModeDebugText" Background="Transparent" Foreground="Black" FontSize="40" Margin="0,50,50,0" BorderThickness="0" Focusable="False" Visibility="Hidden" TextAlignment="Right"/> 
-        <s:ScatterView Name="TestScatterView" Background="Transparent" MouseMove="TestScatterView_MouseMove"/>
-    </Grid>
+        <s:SurfaceTextBox Name="TestModeDebugText" Background="Transparent" Foreground="Black" FontSize="40" Margin="0,50,50,0" BorderThickness="0" Focusable="False" Visibility="Hidden" TextAlignment="Right"/>
+        <s:ScatterView Name="TestScatterView" Background="Transparent" MouseDoubleClick="Click" s:TouchExtensions.HoldGesture="gesturebox_HoldGesture" MouseMove="TestScatterView_MouseMove"/>
+        <!-- Right Button Set -->
+        <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,35,35">
+            <!-- House Button ElementMenu -->
+            <Border x:Name="HouseBorder" BorderThickness="1" BorderBrush="Black" d:LayoutOverrides="Height">
+                <Grid>
+                    <s:SurfaceButton x:Name="HouseButton" Content="House" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                    <s:ElementMenu
+                        Name="HouseMenu"
+                        ActivationMode="HostInteraction" 
+                        ActivationHost="{Binding ElementName=HouseButton}">
+                        <s:ElementMenuItem Name="HouseEMI"  Header="House" Click="HouseButton_Click"/>
+                        <s:ElementMenuItem Name="BuildingEMI"  Header="Building" Click="HouseButton_Click"/>
+                        <s:ElementMenuItem Name="SkyscraperEMI"  Header="Skyscraper" Click="HouseButton_Click"/>
+                    </s:ElementMenu>
+                </Grid>
+            </Border>
+            <!-- Spacing -->
+            <s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
+            <!-- Road Button -->
+            <Border x:Name="RoadBorder" BorderThickness="1" BorderBrush="Black">
+                <s:SurfaceButton x:Name="RoadButton" Click="RoadButton_Click" Content="Road" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Border>
+        </StackPanel>
+    </Grid>  
 </s:SurfaceWindow>
