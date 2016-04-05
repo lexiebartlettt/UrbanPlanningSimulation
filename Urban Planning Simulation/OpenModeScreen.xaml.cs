@@ -30,6 +30,7 @@ namespace Urban_Planning_Simulation
         // Flags for the current mode
         private Boolean canPlaceHouse;
         private Boolean canPlaceRoad;
+        private Boolean tagDetected;
 
         // Set default mode type
         private String houseType = "HouseEMI";
@@ -59,6 +60,7 @@ namespace Urban_Planning_Simulation
             HouseBorder.BorderThickness = new Thickness(5);
             canPlaceHouse = true;
             RoadCanvas.IsEnabled = false;
+            tagDetected = false;
 
             // Initialize button panels
             InitializePanels();
@@ -127,7 +129,7 @@ namespace Urban_Planning_Simulation
         // For mouse clicks
         private void Click(object sender, MouseButtonEventArgs e)
         {
-            if (canPlaceHouse)
+            if ((canPlaceHouse)&&(!tagDetected))
             {
                 RoadCanvas.IsEnabled = false;
                 redoList = new List<Object>();
@@ -145,7 +147,7 @@ namespace Urban_Planning_Simulation
                 item.Orientation = 0;
                 MainScatterview.Items.Add(item);
             }
-            else if (canPlaceRoad)
+            else if ((canPlaceRoad)&&(!tagDetected))
             {
                 RoadCanvas.IsEnabled = true;
             }
@@ -155,7 +157,7 @@ namespace Urban_Planning_Simulation
         // For hold gestures
         private void gesturebox_HoldGesture(object sender, TouchEventArgs e)
         {
-            if (canPlaceHouse)
+            if ((canPlaceHouse)&&(!tagDetected))
             {
                 redoList = new List<Object>();
                 e.Handled = true;
@@ -181,6 +183,7 @@ namespace Urban_Planning_Simulation
         // When tag is detected
         private void UrbanTagVisualizer_VisualizationAdded(object sender, TagVisualizerEventArgs e)
         {
+            tagDetected = true;
             TagVisualization1 objectTag = (TagVisualization1)e.TagVisualization;
             switch (objectTag.VisualizedTag.Value)
             {
@@ -224,6 +227,7 @@ namespace Urban_Planning_Simulation
         // When tag is removed, make scatterviewitem from last location
         private void UrbanTagVisualizer_VisualizationRemoved(object sender, TagVisualizerEventArgs e)
         {
+            tagDetected = false;
             TagVisualization1 objectTag = (TagVisualization1)e.TagVisualization;
             switch (objectTag.VisualizedTag.Value)
             {
@@ -234,7 +238,7 @@ namespace Urban_Planning_Simulation
 
                     item = SetSVHouseImage(item, "HouseEMI");
                     item.Center = p;
-                    item.Orientation = 0;
+                    item.Orientation = objectTag.Orientation;
                     MainScatterview.Items.Add(item);
                     break;
                 // building
@@ -244,7 +248,7 @@ namespace Urban_Planning_Simulation
 
                     item = SetSVHouseImage(item, "BuildingEMI");
                     item.Center = p;
-                    item.Orientation = 0;
+                    item.Orientation = objectTag.Orientation;;
                     MainScatterview.Items.Add(item);
                     break;
                 // skyscraper
@@ -254,7 +258,7 @@ namespace Urban_Planning_Simulation
 
                     item = SetSVHouseImage(item, "SkyscraperEMI");
                     item.Center = p;
-                    item.Orientation = 0;
+                    item.Orientation = objectTag.Orientation;;
                     MainScatterview.Items.Add(item);
                     break;
                 default:
