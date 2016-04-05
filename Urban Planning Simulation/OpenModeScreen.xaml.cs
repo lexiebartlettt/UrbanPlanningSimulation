@@ -188,24 +188,6 @@ namespace Urban_Planning_Simulation
             switch (objectTag.VisualizedTag.Value)
             {
                 case 0:
-                    /*
-                    ImageBrush imgBrush = new ImageBrush();
-                    ScatterViewItem item = new ScatterViewItem();
-                    imgBrush.ImageSource = new BitmapImage(new Uri("Resources/iso_house_1.png", UriKind.Relative));
-                    item.Background = imgBrush;
-
-                    Uri uri = new Uri("Resources/iso_house_1.png", UriKind.Relative);
-                    BitmapImage source = new BitmapImage();
-                    source.BeginInit();
-                    source.UriSource = uri;
-                    source.DecodePixelHeight = (int)item.ActualHeight;
-                    source.DecodePixelWidth = (int)item.ActualWidth;
-                    source.EndInit();
-                    //ScatterViewItem item = new ScatterViewItem();
-                    //BitmapImage img = new BitmapImage();
-                    //img = new BitmapImage(new Uri("Resources/iso_house_1.png", UriKind.Relative));
-
-                    objectTag.structure.Source = source;*/
                     objectTag.HouseModel.Content = "HOUSE ADDED";
                     objectTag.myHouse.Fill = SurfaceColors.Accent1Brush;
                     break;
