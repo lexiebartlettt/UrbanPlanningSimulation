@@ -27,7 +27,8 @@
                         <s:TagVisualizationDefinition x:Name="Skyscraper" Value="0x02"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear" UsesTagOrientation="True" />
                     </s:TagVisualizer.Definitions>
                     <Grid>
-                        <s:SurfaceInkCanvas x:Name="RoadCanvas" Background="Transparent" StrokeCollected="RoadCanvas_StrokeCollected"/>
+                <s:SurfaceInkCanvas x:Name="TestRoadCanvas" Background="Transparent"/>
+                    <s:SurfaceInkCanvas x:Name="RoadCanvas" Background="Transparent" StrokeCollected="RoadCanvas_StrokeCollected"/>
                         <s:ScatterView x:Name="TestScatterView" />
                         <s:ScatterView x:Name="MainScatterview" />
                     </Grid>

@@ -158,14 +158,24 @@ namespace Urban_Planning_Simulation
             StylusPointCollection points = new StylusPointCollection(
                 new StylusPoint[] { point1, point2, point3, point4, point5 });
             Stroke newStroke = new Stroke(points, roadAttributes);
-            RoadCanvas.Strokes.Add(newStroke);
+            TestRoadCanvas.Strokes.Add(newStroke);
+
+            Point road = new Point(0, 0);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            road.X /= points.Count;
+            road.Y /= points.Count;
+            MessageBox.Show(road.ToString());
 
             point1 = new StylusPoint(575, 181);
             point2 = new StylusPoint(575, 479);
             points = new StylusPointCollection(
                 new StylusPoint[] { point1, point2 });
             newStroke = new Stroke(points, roadAttributes);
-            RoadCanvas.Strokes.Add(newStroke);
+            TestRoadCanvas.Strokes.Add(newStroke);
 
             // Add verticle roads
             point1 = new StylusPoint(725, 181);
@@ -173,7 +183,7 @@ namespace Urban_Planning_Simulation
             points = new StylusPointCollection(
                 new StylusPoint[] { point1, point2 });
             newStroke = new Stroke(points, roadAttributes);
-            RoadCanvas.Strokes.Add(newStroke);
+            TestRoadCanvas.Strokes.Add(newStroke);
 
             // Add middle road
             point1 = new StylusPoint(420, 325);
@@ -181,7 +191,7 @@ namespace Urban_Planning_Simulation
             points = new StylusPointCollection(
                 new StylusPoint[] { point1, point2 });
             newStroke = new Stroke(points, roadAttributes);
-            RoadCanvas.Strokes.Add(newStroke);
+            TestRoadCanvas.Strokes.Add(newStroke);
 
             meanTestPoint = NormalizeAndSumPoints(testPoints);
             TestMeanPoint.Text = "(" + Math.Round(meanTestPoint.X, 3) + "," + Math.Round(meanTestPoint.Y, 3) + ")";
@@ -423,7 +433,6 @@ namespace Urban_Planning_Simulation
         private void MeanButton_Click(object sender, RoutedEventArgs e)
         {
             List<Point> userPlacedHousesPoints = new List<Point>();
-
             for (int i = 0; i < userPlacedHouses.Count; i++)
             {
                 userPlacedHousesPoints.Add(userPlacedHouses[i].Center);
@@ -432,6 +441,22 @@ namespace Urban_Planning_Simulation
 
             Point normalized = NormalizeAndSumPoints(userPlacedHousesPoints);
             MessageBox.Show("(" + Math.Round(normalized.X, 3) + "," + Math.Round(normalized.Y, 3) + ")");
+
+            Point roads = new Point(0, 0);
+            for (int i = 0; i < RoadCanvas.Strokes.Count; i++)
+            {
+                Stroke currentStroke = RoadCanvas.Strokes[i];
+                for (int j = 0; j < currentStroke.StylusPoints.Count; j++)
+                {
+                    double x = currentStroke.StylusPoints[j].X;
+                    double y = currentStroke.StylusPoints[j].Y;
+                    roads.X += x;
+                    roads.Y += y;
+                }
+                roads.X /= currentStroke.StylusPoints.Count;
+                roads.Y /= currentStroke.StylusPoints.Count;
+            }
+            MessageBox.Show("(" + Math.Round(roads.X, 3) + "," + Math.Round(roads.Y, 3) + ")");
         }
 
         //======================================================================
@@ -459,7 +484,6 @@ namespace Urban_Planning_Simulation
         private void InitializeInkCanvas()
         {
             RoadCanvas.DefaultDrawingAttributes.Color = Colors.DarkGray;
-            RoadCanvas.DefaultDrawingAttributes.FitToCurve = true;
             RoadCanvas.DefaultDrawingAttributes.IgnorePressure = true;
             RoadCanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Rectangle;
             RoadCanvas.DefaultDrawingAttributes.Height = 15;
