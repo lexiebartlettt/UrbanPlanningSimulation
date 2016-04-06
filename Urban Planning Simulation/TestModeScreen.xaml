@@ -28,7 +28,8 @@
                     </s:TagVisualizer.Definitions>
                     <Grid>
                         <s:SurfaceInkCanvas x:Name="RoadCanvas" Background="Transparent" StrokeCollected="RoadCanvas_StrokeCollected"/>
-                        <s:ScatterView x:Name="MainScatterview" BorderBrush="LightGreen" BorderThickness="4"  />
+                        <s:ScatterView x:Name="TestScatterView" />
+                        <s:ScatterView x:Name="MainScatterview" />
                     </Grid>
                 </s:TagVisualizer>
 

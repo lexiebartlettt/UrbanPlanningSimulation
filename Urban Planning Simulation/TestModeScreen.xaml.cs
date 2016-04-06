@@ -120,21 +120,68 @@ namespace Urban_Planning_Simulation
         {
             List<Point> testPoints = new List<Point>();
 
+            // Draw house locations
             for (int i = 0; i < 3; i++)
             {
-                int x = 250 + (i * 100);
-                int y = 250;
-                Point center = new Point(x, y);
+                for (int j = 0; j < 2; j++)
+                {
+                    int x = 500 + (i * 150);
+                    int y = 250 + (j * 150);
+                    Point center = new Point(x, y);
 
-                ScatterViewItem house = SetSVHouseImage("HouseEMI");
-                house.CanMove = false;
-                house.CanRotate = false;
-                house.CanScale = false;
+                    ScatterViewItem house = SetSVHouseImage("HouseEMI");
+                    house.CanMove = false;
+                    house.CanRotate = false;
+                    house.CanScale = false;
+                    house.Center = center;
+                    house.Opacity = 0.5;
 
-                house.Center = center;
-                MainScatterview.Items.Add(house);
-                testPoints.Add(center);
+                    TestScatterView.Items.Add(house);
+                    testPoints.Add(center);
+                }
             }
+
+            // Draw road locations
+            DrawingAttributes roadAttributes = new DrawingAttributes();
+            roadAttributes.Color = Colors.LightGray;
+            roadAttributes.IgnorePressure = true;
+            roadAttributes.StylusTip = StylusTip.Rectangle;
+            roadAttributes.Width = 15;
+            roadAttributes.Height = 15;
+
+            // Add bounding rectangle road
+            StylusPoint point1 = new StylusPoint(420, 180);
+            StylusPoint point2 = new StylusPoint(880, 180);
+            StylusPoint point3 = new StylusPoint(880, 480);
+            StylusPoint point4 = new StylusPoint(420, 480);
+            StylusPoint point5 = new StylusPoint(420, 180);
+            StylusPointCollection points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2, point3, point4, point5 });
+            Stroke newStroke = new Stroke(points, roadAttributes);
+            RoadCanvas.Strokes.Add(newStroke);
+
+            point1 = new StylusPoint(575, 181);
+            point2 = new StylusPoint(575, 479);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            RoadCanvas.Strokes.Add(newStroke);
+
+            // Add verticle roads
+            point1 = new StylusPoint(725, 181);
+            point2 = new StylusPoint(725, 479);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            RoadCanvas.Strokes.Add(newStroke);
+
+            // Add middle road
+            point1 = new StylusPoint(420, 325);
+            point2 = new StylusPoint(880, 325);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            RoadCanvas.Strokes.Add(newStroke);
 
             meanTestPoint = NormalizeAndSumPoints(testPoints);
             TestMeanPoint.Text = "(" + Math.Round(meanTestPoint.X, 3) + "," + Math.Round(meanTestPoint.Y, 3) + ")";
