@@ -1,4 +1,7 @@
-﻿<s:SurfaceWindow x:Class="Urban_Planning_Simulation.TestModeScreen"
+﻿<!--TODO 
+- Change button contents to button images
+-->
+<s:SurfaceWindow x:Class="Urban_Planning_Simulation.TestModeScreen"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="http://schemas.microsoft.com/surface/2008"
@@ -6,12 +9,47 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d"
     Title="UBS: Test Mode"
-    Background="DarkGreen" d:DesignHeight="403" d:DesignWidth="779"
-    >
+    Background="DarkGreen" d:DesignHeight="403" d:DesignWidth="779" SizeToContent="WidthAndHeight">
+
     <Grid>
         <s:SurfaceTextBox Name="TestModeText" Background="Transparent" Foreground="Black" FontSize="40" Margin="0,50,0,0" BorderThickness="0" TextWrapping="Wrap" Focusable="False" Text="UBS: Test Mode" TextAlignment="Center" />
         <s:SurfaceTextBox Name="TestModeDebugText" Background="Transparent" Foreground="Black" FontSize="40" Margin="0,50,50,0" BorderThickness="0" Focusable="False" Visibility="Hidden" TextAlignment="Right"/>
-        <s:ScatterView Name="TestScatterView" Background="Transparent" MouseDoubleClick="Click" s:TouchExtensions.HoldGesture="gesturebox_HoldGesture" MouseMove="TestScatterView_MouseMove"/>
+        <!-- Main ScrollViewer and Contents
+                - TagVisualizer
+                - SurfaceInkCanvas
+        -->
+                <s:TagVisualizer x:Name="UrbanTagVisualizer" s:TouchExtensions.HoldGesture="gesturebox_HoldGesture" MouseMove="MouseMove" MouseDoubleClick="Click" VisualizationAdded="UrbanTagVisualizer_VisualizationAdded" VisualizationRemoved="UrbanTagVisualizer_VisualizationRemoved">
+                    <s:TagVisualizer.Definitions>
+                        <s:TagVisualizationDefinition x:Name="House" Value="0x00"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />
+                        <s:TagVisualizationDefinition x:Name="Building" Value="0x01"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />
+                        <s:TagVisualizationDefinition x:Name="Skyscraper" Value="0x02"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear" UsesTagOrientation="True" />
+                    </s:TagVisualizer.Definitions>
+                    <Grid>
+                        <s:SurfaceInkCanvas x:Name="RoadCanvas" Background="Transparent" StrokeCollected="RoadCanvas_StrokeCollected"/>
+                        <s:ScatterView x:Name="MainScatterview" BorderBrush="LightGreen" BorderThickness="4"  />
+                    </Grid>
+                </s:TagVisualizer>
+
+        <!-- Left Button Set -->
+        <StackPanel x:Name="LeftButtons" HorizontalAlignment="Left" Margin="35,0,0,35" Orientation="Horizontal" VerticalAlignment="Bottom" MinHeight="0">
+            <!-- Undo Button -->
+            <Border x:Name="UndoBorder" BorderThickness="1" BorderBrush="Black">
+                <s:SurfaceButton x:Name="UndoButton" Click="UndoButton_Click" Content="Undo" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Border>
+            <!-- Spacing -->
+            <s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
+            <!-- Redo Button -->
+            <Border x:Name="RedoBorder" BorderThickness="1" BorderBrush="Black">
+                <s:SurfaceButton x:Name="RedoButton" Click="RedoButton_Click" Content="Redo" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Border>
+            <!-- Spacing -->
+            <s:SurfaceTextBox Margin="0" TextWrapping="Wrap" Text="SPAC" Opacity="0"/>
+            <!-- Clear Button -->
+            <Border x:Name="ClearBorder" BorderThickness="1" BorderBrush="Black">
+                <s:SurfaceButton x:Name="ClearButton" Click="ClearButton_Click" Content="Clear" VerticalAlignment="Bottom" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Border>
+        </StackPanel>
+
         <!-- Right Button Set -->
         <StackPanel x:Name="RightButtons" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,35,35">
             <!-- House Button ElementMenu -->
@@ -35,5 +73,5 @@
                 <s:SurfaceButton x:Name="RoadButton" Click="RoadButton_Click" Content="Road" d:LayoutOverrides="Height" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Border>
         </StackPanel>
-    </Grid>  
+    </Grid>
 </s:SurfaceWindow>
