@@ -317,6 +317,7 @@ namespace Urban_Planning_Simulation
                     item.Orientation = objectTag.Orientation;
                     MainScatterview.Items.Add(item);
                     history.Push(item);
+                    userPlacedHouses.Add(item);
                     break;
                 // building
                 case 1:
@@ -326,6 +327,7 @@ namespace Urban_Planning_Simulation
                     item.Orientation = objectTag.Orientation;;
                     MainScatterview.Items.Add(item);
                     history.Push(item);
+                    userPlacedHouses.Add(item);
                     break;
                 // skyscraper
                 case 2:
@@ -335,6 +337,7 @@ namespace Urban_Planning_Simulation
                     item.Orientation = objectTag.Orientation;;
                     MainScatterview.Items.Add(item);
                     history.Push(item);
+                    userPlacedHouses.Add(item);
                     break;
                 default:
                     break;
