@@ -387,24 +387,27 @@ namespace Urban_Planning_Simulation
             HouseBorder.BorderThickness = new Thickness(1);
             RoadBorder.BorderThickness = new Thickness(1);
             FreeRoamBorder.BorderThickness = new Thickness(1);
-            MainPanel.PanningMode = PanningMode.Both;
+            
 
             if (button == ROAD_BUTTON)
             {
                 RoadBorder.BorderThickness = new Thickness(5);
                 RoadCanvas.IsEnabled = true;
+                MainPanel.PanningMode = PanningMode.None;
                 canPlaceHouse = false;
                 canPlaceRoad = true;
                 setMovement(false);
             } else if (button == HOUSE_BUTTON) {
                 HouseBorder.BorderThickness = new Thickness(5);
                 RoadCanvas.IsEnabled = false;
+                MainPanel.PanningMode = PanningMode.None;
                 canPlaceHouse = true;
                 canPlaceRoad = false;
                 setMovement(true);
             } else if (button == FREE_BUTTON) {
                 FreeRoamBorder.BorderThickness = new Thickness(5);
                 RoadCanvas.IsEnabled = false;
+                MainPanel.PanningMode = PanningMode.Both;
                 canPlaceHouse = false;
                 canPlaceRoad = false;
                 setMovement(false);
