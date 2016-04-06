@@ -41,7 +41,7 @@ namespace Urban_Planning_Simulation
 
         // Testing accuracy
         private Point meanTestPoint;
-        private List<Point> userPlacedHousePoints = new List<Point>();
+        private List<ScatterViewItem> userPlacedHouses = new List<ScatterViewItem>();
 
         public TestModeScreen()
         {
@@ -178,7 +178,7 @@ namespace Urban_Planning_Simulation
                 item.Orientation = 0;
                 
                 MainScatterview.Items.Add(item);
-                userPlacedHousePoints.Add(mousePosition);
+                userPlacedHouses.Add(item);
                 history.Push(item);
             }
             else if ((canPlaceRoad)&&(!tagDetected))
@@ -204,7 +204,7 @@ namespace Urban_Planning_Simulation
                 item.Center = p;
                 item.Orientation = 0;
                 MainScatterview.Items.Add(item);
-                userPlacedHousePoints.Add(p);
+                userPlacedHouses.Add(item);
                 history.Push(item);
             }
         }
@@ -321,7 +321,7 @@ namespace Urban_Planning_Simulation
                     ScatterViewItem svi = (ScatterViewItem) mostRecentItem;
                     redoList.Add(svi);
                     MainScatterview.Items.Remove(svi);
-                    userPlacedHousePoints.Remove(svi.Center);
+                    userPlacedHouses.Remove(svi);
                 }
             }
         }
@@ -341,7 +341,7 @@ namespace Urban_Planning_Simulation
                     ScatterViewItem svi = (ScatterViewItem) mostRecentItem;
                     redoList.Remove(svi);
                     MainScatterview.Items.Add(svi);
-                    userPlacedHousePoints.Add(svi.Center);
+                    userPlacedHouses.Add(svi);
                 }
                 history.Push(mostRecentItem);
             }
@@ -350,25 +350,40 @@ namespace Urban_Planning_Simulation
         // When clear button is clicked
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
+            // Only remove objects that the user placed
+            List<ScatterViewItem> toRemove = new List<ScatterViewItem>();
+            for (int i = 0; i < MainScatterview.Items.Count; i++)
+            {
+                ScatterViewItem svi = (ScatterViewItem)MainScatterview.Items[i];
+                if (userPlacedHouses.Contains(svi))
+                {
+                    toRemove.Add(svi);
+                }
+            }
+
+            for (int i = 0; i < toRemove.Count; i++)
+            {
+                MainScatterview.Items.Remove(toRemove[i]);
+            }
+
             redoList.Clear();
             history.Clear();
-            MainScatterview.Items.Clear();
             RoadCanvas.Strokes.Clear();
-            userPlacedHousePoints.Clear();
+            userPlacedHouses.Clear();
         }
 
         // When mean button is clicked
         private void MeanButton_Click(object sender, RoutedEventArgs e)
         {
-            List<Point> points = new List<Point>();
+            List<Point> userPlacedHousesPoints = new List<Point>();
 
-            for (int i = 0; i < userPlacedHousePoints.Count; i++)
+            for (int i = 0; i < userPlacedHouses.Count; i++)
             {
-                ScatterViewItem current = (ScatterViewItem) MainScatterview.Items[i];
-                points.Add(current.Center);
+                userPlacedHousesPoints.Add(userPlacedHouses[i].Center);
+
             }
 
-            Point normalized = NormalizeAndSumPoints(points);
+            Point normalized = NormalizeAndSumPoints(userPlacedHousesPoints);
             MessageBox.Show("(" + Math.Round(normalized.X, 3) + "," + Math.Round(normalized.Y, 3) + ")");
         }
 
@@ -493,6 +508,8 @@ namespace Urban_Planning_Simulation
             item.Background = imgBrush;
             item.Height = img.Height * resize_value;
             item.Width = img.Width * resize_value;
+            item.CanRotate = false;
+            item.CanScale = false;
 
             return item;
         }
