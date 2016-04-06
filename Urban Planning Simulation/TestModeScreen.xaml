@@ -36,7 +36,7 @@
                 </s:TagVisualizer>
 
         <!-- Top Button -->
-        <s:SurfaceButton Name="ShowCurrentMean" Background="Gray" BorderBrush="Black" BorderThickness="1" Margin="0, 220, 50, 0" Content="Show Mean" Click="MeanButton_Click" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+        <s:SurfaceButton Name="ShowScore" Background="Gray" BorderBrush="Black" BorderThickness="1" Margin="0, 220, 50, 0" Content="Show Score" Click="ScoreButton_Click" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         
         <!-- Left Button Set -->
         <StackPanel x:Name="LeftButtons" HorizontalAlignment="Left" Margin="35,0,0,35" Orientation="Horizontal" VerticalAlignment="Bottom" MinHeight="0">

@@ -41,6 +41,7 @@ namespace Urban_Planning_Simulation
 
         // Testing accuracy
         private Point meanTestPoint;
+        private Point meanRoadPoint;
         private List<ScatterViewItem> userPlacedHouses = new List<ScatterViewItem>();
 
         public TestModeScreen()
@@ -194,6 +195,7 @@ namespace Urban_Planning_Simulation
             TestRoadCanvas.Strokes.Add(newStroke);
 
             meanTestPoint = NormalizeAndSumPoints(testPoints);
+            meanRoadPoint = road;
             TestMeanPoint.Text = "(" + Math.Round(meanTestPoint.X, 3) + "," + Math.Round(meanTestPoint.Y, 3) + ")";
         }
 
@@ -441,33 +443,48 @@ namespace Urban_Planning_Simulation
         }
 
         // When mean button is clicked
-        private void MeanButton_Click(object sender, RoutedEventArgs e)
+        private void ScoreButton_Click(object sender, RoutedEventArgs e)
         {
-            List<Point> userPlacedHousesPoints = new List<Point>();
-            for (int i = 0; i < userPlacedHouses.Count; i++)
+            // Calculate normalized house mean
+            if (userPlacedHouses.Count == 0)
             {
-                userPlacedHousesPoints.Add(userPlacedHouses[i].Center);
-
-            }
-
-            Point normalized = NormalizeAndSumPoints(userPlacedHousesPoints);
-            MessageBox.Show("(" + Math.Round(normalized.X, 3) + "," + Math.Round(normalized.Y, 3) + ")");
-
-            Point roads = new Point(0, 0);
-            for (int i = 0; i < RoadCanvas.Strokes.Count; i++)
-            {
-                Stroke currentStroke = RoadCanvas.Strokes[i];
-                for (int j = 0; j < currentStroke.StylusPoints.Count; j++)
+                MessageBox.Show("House Score: N/A");
+            } else {
+                List<Point> userPlacedHousesPoints = new List<Point>();
+                for (int i = 0; i < userPlacedHouses.Count; i++)
                 {
-                    double x = currentStroke.StylusPoints[j].X;
-                    double y = currentStroke.StylusPoints[j].Y;
-                    roads.X += x;
-                    roads.Y += y;
+                    userPlacedHousesPoints.Add(userPlacedHouses[i].Center);
                 }
-                roads.X /= currentStroke.StylusPoints.Count;
-                roads.Y /= currentStroke.StylusPoints.Count;
+
+                Point normalized = NormalizeAndSumPoints(userPlacedHousesPoints);
+                double dist = CalculateEuclideanDistance(normalized, meanTestPoint);
+                MessageBox.Show("House Score: " + dist.ToString());
             }
-            MessageBox.Show("(" + Math.Round(roads.X, 3) + "," + Math.Round(roads.Y, 3) + ")");
+
+            // Calculate road mean
+            if (RoadCanvas.Strokes.Count == 0)
+            {
+                MessageBox.Show("Road Score: N/A");
+            } else {
+                Point roads = new Point(0, 0);
+                int count = 0;
+                for (int i = 0; i < RoadCanvas.Strokes.Count; i++)
+                {
+                    Stroke currentStroke = RoadCanvas.Strokes[i];
+                    count += currentStroke.StylusPoints.Count;
+                    for (int j = 0; j < currentStroke.StylusPoints.Count; j++)
+                    {
+                        double x = currentStroke.StylusPoints[j].X;
+                        double y = currentStroke.StylusPoints[j].Y;
+                        roads.X += x;
+                        roads.Y += y;
+                    }
+                }
+                roads.X /= count;
+                roads.Y /= count;
+                double dist = CalculateEuclideanDistance(roads, meanRoadPoint);
+                MessageBox.Show("Road Score: " + dist.ToString());
+            }
         }
 
         //======================================================================
@@ -604,6 +621,11 @@ namespace Urban_Planning_Simulation
                 Point location = e.GetPosition(this);
                 TestModeDebugText.Text = "(" + location.ToString() + ")";
             }
+        }
+
+        private double CalculateEuclideanDistance(Point A, Point B)
+        {
+            return Math.Sqrt(Math.Pow(A.X - B.X, 2) + Math.Pow(A.Y - B.Y, 2));
         }
     }
 }
