@@ -42,32 +42,13 @@ namespace Urban_Planning_Simulation
         {
             // Initialize the layout
             InitializeComponent();
+            InitializeScrollView();
+            InitializeMode();
+            InitializePanels();
+            InitializeInkCanvas();
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
-
-            //Initialize Background
-            PanelBackground.Source = new BitmapImage(new Uri("Resources/grass.png", UriKind.Relative));
-
-            // Start initial position and options for ScrollViewer
-            MainPanel.ScrollToVerticalOffset(4000);
-            MainPanel.ScrollToHorizontalOffset(4000);
-            MainPanel.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
-            MainPanel.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
-            MainPanel.PanningMode = PanningMode.None;
-
-            // Default to house mode
-            HouseBorder.BorderThickness = new Thickness(5);
-            canPlaceHouse = true;
-            RoadCanvas.IsEnabled = false;
-            tagDetected = false;
-
-            // Initialize button panels
-            InitializePanels();
-
-            // Initialize InkCanvas Settings
-            InitializeInkCanvas();
-
         }
 
         /// Occurs when the window is about to close. 
@@ -322,9 +303,8 @@ namespace Urban_Planning_Simulation
         }
 
         //======================================================================
-        //                          Helper Functions
+        //                          Initialize Functions
         //======================================================================
-
         // Sets the sizes for the StackPanels and the buttons within it.
         private void InitializePanels()
         {
@@ -343,6 +323,45 @@ namespace Urban_Planning_Simulation
             SetButtonSize(ClearButton, WindowHeight / 10);
         }
 
+        // Sets the settings for the road InkCanvas
+        private void InitializeInkCanvas()
+        {
+            RoadCanvas.DefaultDrawingAttributes.Color = Colors.DarkGray;
+            RoadCanvas.DefaultDrawingAttributes.FitToCurve = true;
+            RoadCanvas.DefaultDrawingAttributes.IgnorePressure = true;
+            RoadCanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Rectangle;
+            RoadCanvas.DefaultDrawingAttributes.Height = 15;
+            RoadCanvas.DefaultDrawingAttributes.Width = 15;
+            RoadCanvas.UsesTouchShape = false;
+        }
+
+        // Sets the default mode
+        private void InitializeMode()
+        {
+            // Default to house mode
+            HouseBorder.BorderThickness = new Thickness(5);
+            canPlaceHouse = true;
+            RoadCanvas.IsEnabled = false;
+            tagDetected = false;
+        }
+
+        // Sets the default settings for scroll view
+        private void InitializeScrollView()
+        {
+            //Initialize Background
+            PanelBackground.Source = new BitmapImage(new Uri("Resources/grass.png", UriKind.Relative));
+
+            // Start initial position and options for ScrollViewer
+            MainPanel.ScrollToVerticalOffset(4000);
+            MainPanel.ScrollToHorizontalOffset(4000);
+            MainPanel.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+            MainPanel.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
+            MainPanel.PanningMode = PanningMode.None;
+        }
+
+        //======================================================================
+        //                          Helper Functions
+        //======================================================================
         //sets movement/scale/rotation for buildings based on mode
         private void setMovement(bool mov)
         {
@@ -361,18 +380,6 @@ namespace Urban_Planning_Simulation
 
                 }
             }
-        }
-
-        // Sets the settings for the road InkCanvas
-        private void InitializeInkCanvas()
-        {
-            RoadCanvas.DefaultDrawingAttributes.Color = Colors.DarkGray;
-            RoadCanvas.DefaultDrawingAttributes.FitToCurve = true;
-            RoadCanvas.DefaultDrawingAttributes.IgnorePressure = true;
-            RoadCanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Rectangle;
-            RoadCanvas.DefaultDrawingAttributes.Height = 20;
-            RoadCanvas.DefaultDrawingAttributes.Width = 20;
-            RoadCanvas.UsesTouchShape = false;
         }
 
         // Sets the passed button's width and height to be equal to size.
@@ -416,27 +423,33 @@ namespace Urban_Planning_Simulation
         }
 
         // Sets the image of the house ScatterView based on which type of house is selected
+        // Sets the image of the house ScatterView based on which type of house is selected
         private ScatterViewItem SetSVHouseImage(ScatterViewItem sv, String type)
         {
             ScatterViewItem item = new ScatterViewItem();
             BitmapImage img = new BitmapImage();
+            double resize_value = 0.2;
 
             if (type.Equals("HouseEMI", StringComparison.Ordinal))
             {
                 img = new BitmapImage(new Uri("Resources/iso_house_1.png", UriKind.Relative));
 
-            } else if (type.Equals("BuildingEMI", StringComparison.Ordinal)) 
+            }
+            else if (type.Equals("BuildingEMI", StringComparison.Ordinal))
             {
                 img = new BitmapImage(new Uri("Resources/iso_building_1.png", UriKind.Relative));
             }
-            else if (type.Equals("SkyscraperEMI", StringComparison.Ordinal)) 
+            else if (type.Equals("SkyscraperEMI", StringComparison.Ordinal))
             {
                 img = new BitmapImage(new Uri("Resources/iso_skyscraper_1.png", UriKind.Relative));
+                resize_value = 0.165;
             }
 
             ImageBrush imgBrush = new ImageBrush();
             imgBrush.ImageSource = img;
             item.Background = imgBrush;
+            item.Height = img.Height * resize_value;
+            item.Width = img.Width * resize_value;
 
             return item;
         }

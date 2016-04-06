@@ -18,7 +18,7 @@
                 - TagVisualizer
                 - SurfaceInkCanvas
         -->
-                <s:TagVisualizer x:Name="UrbanTagVisualizer" s:TouchExtensions.HoldGesture="gesturebox_HoldGesture" MouseMove="MouseMove" MouseDoubleClick="Click" VisualizationAdded="UrbanTagVisualizer_VisualizationAdded" VisualizationRemoved="UrbanTagVisualizer_VisualizationRemoved">
+                <s:TagVisualizer x:Name="UrbanTagVisualizer" s:TouchExtensions.HoldGesture="gesturebox_HoldGesture" MouseMove="MouseMovement" MouseDoubleClick="Click" VisualizationAdded="UrbanTagVisualizer_VisualizationAdded" VisualizationRemoved="UrbanTagVisualizer_VisualizationRemoved">
                     <s:TagVisualizer.Definitions>
                         <s:TagVisualizationDefinition x:Name="House" Value="0x00"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />
                         <s:TagVisualizationDefinition x:Name="Building" Value="0x01"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />

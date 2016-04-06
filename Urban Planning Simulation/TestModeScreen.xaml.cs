@@ -124,6 +124,7 @@ namespace Urban_Planning_Simulation
 
                 item.Center = mousePosition;
                 item.Orientation = 0;
+                
                 MainScatterview.Items.Add(item);
                 history.Push(item);
             }
@@ -301,7 +302,7 @@ namespace Urban_Planning_Simulation
         }
 
         //======================================================================
-        //                          Helper Functions
+        //                          Initialize Functions
         //======================================================================
 
         // Sets the sizes for the StackPanels and the buttons within it.
@@ -321,6 +322,32 @@ namespace Urban_Planning_Simulation
             SetButtonSize(ClearButton, WindowHeight / 10);
         }
 
+        // Sets the settings for the road InkCanvas
+        private void InitializeInkCanvas()
+        {
+            RoadCanvas.DefaultDrawingAttributes.Color = Colors.DarkGray;
+            RoadCanvas.DefaultDrawingAttributes.FitToCurve = true;
+            RoadCanvas.DefaultDrawingAttributes.IgnorePressure = true;
+            RoadCanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Rectangle;
+            RoadCanvas.DefaultDrawingAttributes.Height = 15;
+            RoadCanvas.DefaultDrawingAttributes.Width = 15;
+            RoadCanvas.UsesTouchShape = false;
+        }
+
+        // Initialize the default mode (house)
+        private void InitializeMode()
+        {
+            // Default to house mode
+            HouseBorder.BorderThickness = new Thickness(5);
+            canPlaceHouse = true;
+            RoadCanvas.IsEnabled = false;
+            tagDetected = false;
+        }
+
+        //======================================================================
+        //                          Helper Functions
+        //======================================================================
+
         //sets movement/scale/rotation for buildings based on mode
         private void setMovement(bool mov)
         {
@@ -339,18 +366,6 @@ namespace Urban_Planning_Simulation
 
                 }
             }
-        }
-
-        // Sets the settings for the road InkCanvas
-        private void InitializeInkCanvas()
-        {
-            RoadCanvas.DefaultDrawingAttributes.Color = Colors.DarkGray;
-            RoadCanvas.DefaultDrawingAttributes.FitToCurve = true;
-            RoadCanvas.DefaultDrawingAttributes.IgnorePressure = true;
-            RoadCanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Rectangle;
-            RoadCanvas.DefaultDrawingAttributes.Height = 20;
-            RoadCanvas.DefaultDrawingAttributes.Width = 20;
-            RoadCanvas.UsesTouchShape = false;
         }
 
         // Sets the passed button's width and height to be equal to size.
@@ -379,7 +394,6 @@ namespace Urban_Planning_Simulation
                 canPlaceRoad = false;
                 setMovement(true);
             }
-
         }
 
         // Sets the image of the house ScatterView based on which type of house is selected
@@ -387,6 +401,7 @@ namespace Urban_Planning_Simulation
         {
             ScatterViewItem item = new ScatterViewItem();
             BitmapImage img = new BitmapImage();
+            double resize_value = 0.2;
 
             if (type.Equals("HouseEMI", StringComparison.Ordinal))
             {
@@ -399,27 +414,20 @@ namespace Urban_Planning_Simulation
             else if (type.Equals("SkyscraperEMI", StringComparison.Ordinal)) 
             {
                 img = new BitmapImage(new Uri("Resources/iso_skyscraper_1.png", UriKind.Relative));
+                resize_value = 0.165;
             }
 
             ImageBrush imgBrush = new ImageBrush();
             imgBrush.ImageSource = img;
             item.Background = imgBrush;
+            item.Height = img.Height * resize_value;
+            item.Width = img.Width * resize_value;
 
             return item;
         }
 
-        // Initialize the default mode (house)
-        private void InitializeMode()
-        {
-            // Default to house mode
-            HouseBorder.BorderThickness = new Thickness(5);
-            canPlaceHouse = true;
-            RoadCanvas.IsEnabled = false;
-            tagDetected = false;
-        }
-
         // When in debug mode, the coordinates of mouse are shown in corner
-        private void MouseMove(object sender, MouseEventArgs e)
+        private void MouseMovement(object sender, MouseEventArgs e)
         {
             if (DEBUG_MODE)
             {
