@@ -57,6 +57,7 @@ namespace Urban_Planning_Simulation
             {
                 TestModeDebugText.Visibility = Visibility.Visible;
                 TestMeanPoint.Visibility = Visibility.Visible;
+                TestMeanRoadPoint.Visibility = Visibility.Visible;
             }
 
             // Set up test
@@ -120,6 +121,7 @@ namespace Urban_Planning_Simulation
         private void SetupTestOne()
         {
             List<Point> testPoints = new List<Point>();
+            int count = 0;
 
             // Draw house locations
             for (int i = 0; i < 3; i++)
@@ -167,9 +169,7 @@ namespace Urban_Planning_Simulation
                 road.X += points[i].X;
                 road.Y += points[i].Y;
             }
-            road.X /= points.Count;
-            road.Y /= points.Count;
-            MessageBox.Show(road.ToString());
+            count += points.Count;
 
             point1 = new StylusPoint(575, 181);
             point2 = new StylusPoint(575, 479);
@@ -177,7 +177,13 @@ namespace Urban_Planning_Simulation
                 new StylusPoint[] { point1, point2 });
             newStroke = new Stroke(points, roadAttributes);
             TestRoadCanvas.Strokes.Add(newStroke);
-
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+            
             // Add verticle roads
             point1 = new StylusPoint(725, 181);
             point2 = new StylusPoint(725, 479);
@@ -185,6 +191,12 @@ namespace Urban_Planning_Simulation
                 new StylusPoint[] { point1, point2 });
             newStroke = new Stroke(points, roadAttributes);
             TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
 
             // Add middle road
             point1 = new StylusPoint(420, 325);
@@ -193,10 +205,19 @@ namespace Urban_Planning_Simulation
                 new StylusPoint[] { point1, point2 });
             newStroke = new Stroke(points, roadAttributes);
             TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+            road.X /= count;
+            road.Y /= count;
 
             meanTestPoint = NormalizeAndSumPoints(testPoints);
             meanRoadPoint = road;
             TestMeanPoint.Text = "(" + Math.Round(meanTestPoint.X, 3) + "," + Math.Round(meanTestPoint.Y, 3) + ")";
+            TestMeanRoadPoint.Text = "(" + Math.Round(meanRoadPoint.X, 3) + "," + Math.Round(meanRoadPoint.Y, 3) + ")";
         }
 
         // Normalize and sums the passed points
