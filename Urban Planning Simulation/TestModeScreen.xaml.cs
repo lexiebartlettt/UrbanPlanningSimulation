@@ -56,7 +56,6 @@ namespace Urban_Planning_Simulation
             {
                 TestModeDebugText.Visibility = Visibility.Visible;
                 TestMeanPoint.Visibility = Visibility.Visible;
-                TestMeanRoadPoint.Visibility = Visibility.Visible;
             }
 
             // Set up test
@@ -120,8 +119,6 @@ namespace Urban_Planning_Simulation
         private void SetupTestOne()
         {
             List<Point> testPoints = new List<Point>();
-            Point road = new Point(0, 0);
-            int count = 0;
 
             // Draw house locations
             for (int i = 0; i < 3; i++)
@@ -163,26 +160,22 @@ namespace Urban_Planning_Simulation
             Stroke newStroke = new Stroke(points, roadAttributes);
             TestRoadCanvas.Strokes.Add(newStroke);
 
+            Point road = new Point(0, 0);
             for (int i = 0; i < points.Count; i++)
             {
                 road.X += points[i].X;
                 road.Y += points[i].Y;
             }
-            count += points.Count;
+            road.X /= points.Count;
+            road.Y /= points.Count;
+            MessageBox.Show(road.ToString());
 
-            // Add horizontal road
             point1 = new StylusPoint(575, 181);
             point2 = new StylusPoint(575, 479);
             points = new StylusPointCollection(
                 new StylusPoint[] { point1, point2 });
             newStroke = new Stroke(points, roadAttributes);
             TestRoadCanvas.Strokes.Add(newStroke);
-            for (int i = 0; i < points.Count; i++)
-            {
-                road.X += points[i].X;
-                road.Y += points[i].Y;
-            }
-            count += points.Count;
 
             // Add verticle roads
             point1 = new StylusPoint(725, 181);
@@ -191,31 +184,17 @@ namespace Urban_Planning_Simulation
                 new StylusPoint[] { point1, point2 });
             newStroke = new Stroke(points, roadAttributes);
             TestRoadCanvas.Strokes.Add(newStroke);
-            for (int i = 0; i < points.Count; i++)
-            {
-                road.X += points[i].X;
-                road.Y += points[i].Y;
-            }
-            count += points.Count;
 
+            // Add middle road
             point1 = new StylusPoint(420, 325);
             point2 = new StylusPoint(880, 325);
             points = new StylusPointCollection(
                 new StylusPoint[] { point1, point2 });
             newStroke = new Stroke(points, roadAttributes);
             TestRoadCanvas.Strokes.Add(newStroke);
-            for (int i = 0; i < points.Count; i++)
-            {
-                road.X += points[i].X;
-                road.Y += points[i].Y;
-            }
-            count += points.Count;
-            road.X /= count;
-            road.Y /= count;
 
             meanTestPoint = NormalizeAndSumPoints(testPoints);
             TestMeanPoint.Text = "(" + Math.Round(meanTestPoint.X, 3) + "," + Math.Round(meanTestPoint.Y, 3) + ")";
-            TestMeanRoadPoint.Text = "(" + Math.Round(road.X, 3) + "," + Math.Round(road.Y, 3) + ")";
         }
 
         // Normalize and sums the passed points
@@ -300,6 +279,10 @@ namespace Urban_Planning_Simulation
         // When tag is detected
         private void UrbanTagVisualizer_VisualizationAdded(object sender, TagVisualizerEventArgs e)
         {
+            if (canPlaceRoad)
+            {
+                return;
+            }
             tagDetected = true;
             TagVisualization1 objectTag = (TagVisualization1)e.TagVisualization;
             switch (objectTag.VisualizedTag.Value)
@@ -326,6 +309,10 @@ namespace Urban_Planning_Simulation
         // When tag is removed, make scatterviewitem from last location
         private void UrbanTagVisualizer_VisualizationRemoved(object sender, TagVisualizerEventArgs e)
         {
+            if (canPlaceRoad)
+            {
+                return;
+            }
             tagDetected = false;
             TagVisualization1 objectTag = (TagVisualization1)e.TagVisualization;
             switch (objectTag.VisualizedTag.Value)

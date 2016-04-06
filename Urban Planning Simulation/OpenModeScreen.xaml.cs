@@ -167,7 +167,7 @@ namespace Urban_Planning_Simulation
         // When tag is detected
         private void UrbanTagVisualizer_VisualizationAdded(object sender, TagVisualizerEventArgs e)
         {
-            tagDetected = true;
+            changeTagDetected(true);
             TagVisualization1 objectTag = (TagVisualization1)e.TagVisualization;
             switch (objectTag.VisualizedTag.Value)
             {
@@ -193,7 +193,7 @@ namespace Urban_Planning_Simulation
         // When tag is removed, make scatterviewitem from last location
         private void UrbanTagVisualizer_VisualizationRemoved(object sender, TagVisualizerEventArgs e)
         {
-            tagDetected = false;
+            changeTagDetected(false);
             TagVisualization1 objectTag = (TagVisualization1)e.TagVisualization;
             switch (objectTag.VisualizedTag.Value)
             {
@@ -353,7 +353,7 @@ namespace Urban_Planning_Simulation
             HouseBorder.BorderThickness = new Thickness(5);
             canPlaceHouse = true;
             RoadCanvas.IsEnabled = false;
-            tagDetected = false;
+            changeTagDetected(false);
         }
 
         // Sets the default settings for scroll view
@@ -463,6 +463,18 @@ namespace Urban_Planning_Simulation
             item.Width = img.Width * resize_value;
 
             return item;
+        }
+        private void changeTagDetected(Boolean detected) 
+        {
+            tagDetected = detected;
+            if (tagDetected)
+            {
+                RoadCanvas.IsEnabled = false;
+            }
+            else
+            {
+                RoadCanvas.IsEnabled = true;
+            }
         }
     }
 }

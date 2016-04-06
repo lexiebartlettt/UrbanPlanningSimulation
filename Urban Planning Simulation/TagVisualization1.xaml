@@ -15,7 +15,7 @@
                VerticalAlignment="Stretch"
                />
         <Label Name="HouseModel" 
-               Content="House" 
+               Content="" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Center"/>  
     </Grid>
