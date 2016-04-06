@@ -39,6 +39,10 @@ namespace Urban_Planning_Simulation
         private List<Object> redoList = new List<Object>();
         private Stack<Object> history = new Stack<Object>();
 
+        // Testing accuracy
+        private Point meanTestPoint;
+        private List<Point> userPlacedHousePoints = new List<Point>();
+
         public TestModeScreen()
         {
             // Initialize the layout
@@ -51,7 +55,11 @@ namespace Urban_Planning_Simulation
             if (DEBUG_MODE)
             {
                 TestModeDebugText.Visibility = Visibility.Visible;
+                TestMeanPoint.Visibility = Visibility.Visible;
             }
+
+            // Set up test
+            SetupTestOne();
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
@@ -104,8 +112,53 @@ namespace Urban_Planning_Simulation
         }
 
         //======================================================================
+        //                       Test Functions
+        //======================================================================
+
+        // Sets up the houses and roads for test one
+        private void SetupTestOne()
+        {
+            List<Point> testPoints = new List<Point>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                int x = 250 + (i * 100);
+                int y = 250;
+                Point center = new Point(x, y);
+
+                ScatterViewItem house = SetSVHouseImage("HouseEMI");
+                house.CanMove = false;
+                house.CanRotate = false;
+                house.CanScale = false;
+
+                house.Center = center;
+                MainScatterview.Items.Add(house);
+                testPoints.Add(center);
+            }
+
+            meanTestPoint = NormalizeAndSumPoints(testPoints);
+            TestMeanPoint.Text = "(" + Math.Round(meanTestPoint.X, 3) + "," + Math.Round(meanTestPoint.Y, 3) + ")";
+        }
+
+        // Normalize and sums the passed points
+        private Point NormalizeAndSumPoints(List<Point> points)
+        {
+            Point summedPoint = new Point(0, 0);
+            List<Point> normalizedPoints = new List<Point>();
+
+            for (int i = 0; i < points.Count; i++)
+            {
+                double length = Math.Sqrt(Math.Pow(points[i].X, 2) + Math.Pow(points[i].Y, 2));
+                summedPoint.X += (points[i].X / length);
+                summedPoint.Y += (points[i].Y / length);
+            }
+
+            return summedPoint;
+        }
+
+        //======================================================================
         //                       Canvas Functions
-        //======================================================================U
+        //======================================================================
 
         // For mouse clicks
         private void Click(object sender, MouseButtonEventArgs e)
@@ -119,13 +172,13 @@ namespace Urban_Planning_Simulation
                 Point mousePosition = e.GetPosition(this);
 
                 // Setting the ScatterView image background
-                ScatterViewItem item = new ScatterViewItem();
-                item = SetSVHouseImage(item, houseType);
+                ScatterViewItem item = SetSVHouseImage(houseType);
 
                 item.Center = mousePosition;
                 item.Orientation = 0;
                 
                 MainScatterview.Items.Add(item);
+                userPlacedHousePoints.Add(mousePosition);
                 history.Push(item);
             }
             else if ((canPlaceRoad)&&(!tagDetected))
@@ -146,12 +199,12 @@ namespace Urban_Planning_Simulation
                 Point p = e.TouchDevice.GetPosition(this);
 
                 // Setting the ScatterView image background
-                ScatterViewItem item = new ScatterViewItem();
-                item = SetSVHouseImage(item, houseType);
+                ScatterViewItem item = SetSVHouseImage(houseType);
 
                 item.Center = p;
                 item.Orientation = 0;
                 MainScatterview.Items.Add(item);
+                userPlacedHousePoints.Add(p);
                 history.Push(item);
             }
         }
@@ -202,9 +255,7 @@ namespace Urban_Planning_Simulation
                 // house
                 case 0:
                     Point p = objectTag.Center;
-                    ScatterViewItem item = new ScatterViewItem();
-
-                    item = SetSVHouseImage(item, "HouseEMI");
+                    ScatterViewItem item = SetSVHouseImage("HouseEMI");
                     item.Center = p;
                     item.Orientation = objectTag.Orientation;
                     MainScatterview.Items.Add(item);
@@ -213,9 +264,7 @@ namespace Urban_Planning_Simulation
                 // building
                 case 1:
                     p = objectTag.Center;
-                    item = new ScatterViewItem();
-
-                    item = SetSVHouseImage(item, "BuildingEMI");
+                    item = SetSVHouseImage("BuildingEMI");
                     item.Center = p;
                     item.Orientation = objectTag.Orientation;;
                     MainScatterview.Items.Add(item);
@@ -224,9 +273,7 @@ namespace Urban_Planning_Simulation
                 // skyscraper
                 case 2:
                     p = objectTag.Center;
-                    item = new ScatterViewItem();
-
-                    item = SetSVHouseImage(item, "SkyscraperEMI");
+                    item = SetSVHouseImage("SkyscraperEMI");
                     item.Center = p;
                     item.Orientation = objectTag.Orientation;;
                     MainScatterview.Items.Add(item);
@@ -271,8 +318,10 @@ namespace Urban_Planning_Simulation
                     redoList.Add((Stroke) mostRecentItem);
                     RoadCanvas.Strokes.Remove((Stroke) mostRecentItem);
                 } else if (mostRecentItem.GetType() == typeof(ScatterViewItem)) {
-                    redoList.Add((ScatterViewItem) mostRecentItem);
-                    MainScatterview.Items.Remove((ScatterViewItem) mostRecentItem);
+                    ScatterViewItem svi = (ScatterViewItem) mostRecentItem;
+                    redoList.Add(svi);
+                    MainScatterview.Items.Remove(svi);
+                    userPlacedHousePoints.Remove(svi.Center);
                 }
             }
         }
@@ -289,8 +338,10 @@ namespace Urban_Planning_Simulation
                     redoList.Remove((Stroke) mostRecentItem);
                     RoadCanvas.Strokes.Add((Stroke) mostRecentItem);
                 } else if (mostRecentItem.GetType() == typeof(ScatterViewItem)) {
-                    redoList.Remove((ScatterViewItem) mostRecentItem);
-                    MainScatterview.Items.Add((ScatterViewItem) mostRecentItem);
+                    ScatterViewItem svi = (ScatterViewItem) mostRecentItem;
+                    redoList.Remove(svi);
+                    MainScatterview.Items.Add(svi);
+                    userPlacedHousePoints.Add(svi.Center);
                 }
                 history.Push(mostRecentItem);
             }
@@ -303,6 +354,22 @@ namespace Urban_Planning_Simulation
             history.Clear();
             MainScatterview.Items.Clear();
             RoadCanvas.Strokes.Clear();
+            userPlacedHousePoints.Clear();
+        }
+
+        // When mean button is clicked
+        private void MeanButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<Point> points = new List<Point>();
+
+            for (int i = 0; i < userPlacedHousePoints.Count; i++)
+            {
+                ScatterViewItem current = (ScatterViewItem) MainScatterview.Items[i];
+                points.Add(current.Center);
+            }
+
+            Point normalized = NormalizeAndSumPoints(points);
+            MessageBox.Show("(" + Math.Round(normalized.X, 3) + "," + Math.Round(normalized.Y, 3) + ")");
         }
 
         //======================================================================
@@ -401,7 +468,7 @@ namespace Urban_Planning_Simulation
         }
 
         // Sets the image of the house ScatterView based on which type of house is selected
-        private ScatterViewItem SetSVHouseImage(ScatterViewItem sv, String type)
+        private ScatterViewItem SetSVHouseImage(String type)
         {
             ScatterViewItem item = new ScatterViewItem();
             BitmapImage img = new BitmapImage();

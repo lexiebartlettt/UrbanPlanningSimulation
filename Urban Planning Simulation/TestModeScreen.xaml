@@ -12,8 +12,10 @@
     Background="DarkGreen" d:DesignHeight="403" d:DesignWidth="779" SizeToContent="WidthAndHeight">
 
     <Grid>
+        <!-- Text -->
         <s:SurfaceTextBox Name="TestModeText" Background="Transparent" Foreground="Black" FontSize="40" Margin="0,50,0,0" BorderThickness="0" TextWrapping="Wrap" Focusable="False" Text="UBS: Test Mode" TextAlignment="Center" />
         <s:SurfaceTextBox Name="TestModeDebugText" Background="Transparent" Foreground="Black" FontSize="40" Margin="0,50,50,0" BorderThickness="0" Focusable="False" Visibility="Hidden" TextAlignment="Right"/>
+        <s:SurfaceTextBox Name="TestMeanPoint" Background="Transparent" Foreground="Black" FontSize="40" Margin="0,100,50,0" BorderThickness="0" Focusable="False" Visibility="Hidden" TextAlignment="Right"/>
         <!-- Main ScrollViewer and Contents
                 - TagVisualizer
                 - SurfaceInkCanvas
@@ -30,6 +32,9 @@
                     </Grid>
                 </s:TagVisualizer>
 
+        <!-- Top Button -->
+        <s:SurfaceButton Name="ShowCurrentMean" Background="Gray" BorderBrush="Black" BorderThickness="1" Margin="0, 170, 50, 0" Content="Show Mean" Click="MeanButton_Click" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+        
         <!-- Left Button Set -->
         <StackPanel x:Name="LeftButtons" HorizontalAlignment="Left" Margin="35,0,0,35" Orientation="Horizontal" VerticalAlignment="Bottom" MinHeight="0">
             <!-- Undo Button -->
