@@ -37,6 +37,7 @@ namespace Urban_Planning_Simulation
 
         // List for handling undo/redo
         private List<Object> redoList = new List<Object>();
+        private Stack<Object> history = new Stack<Object>();
 
         public OpenModeScreen()
         {
@@ -104,7 +105,7 @@ namespace Urban_Planning_Simulation
         // Handles event for completion of stroke on InkCanvas
         private void InkCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
         {
-            MainScatterview.Items.Add(e.Stroke);
+            history.Push(e.Stroke);
         }
 
         // For mouse clicks
@@ -127,6 +128,7 @@ namespace Urban_Planning_Simulation
                 item.Center = mousePosition;
                 item.Orientation = 0;
                 MainScatterview.Items.Add(item);
+                history.Push(item);
             }
             else if ((canPlaceRoad)&&(!tagDetected))
             {
@@ -154,6 +156,7 @@ namespace Urban_Planning_Simulation
                 item.Center = p;
                 item.Orientation = 0;
                 MainScatterview.Items.Add(item);
+                history.Push(item);
             }
         }
 
@@ -203,6 +206,7 @@ namespace Urban_Planning_Simulation
                     item.Center = p;
                     item.Orientation = objectTag.Orientation;
                     MainScatterview.Items.Add(item);
+                    history.Push(item);
                     break;
                 // building
                 case 1:
@@ -213,6 +217,7 @@ namespace Urban_Planning_Simulation
                     item.Center = p;
                     item.Orientation = objectTag.Orientation;;
                     MainScatterview.Items.Add(item);
+                    history.Push(item);
                     break;
                 // skyscraper
                 case 2:
@@ -223,6 +228,7 @@ namespace Urban_Planning_Simulation
                     item.Center = p;
                     item.Orientation = objectTag.Orientation;;
                     MainScatterview.Items.Add(item);
+                    history.Push(item);
                     break;
                 default:
                     break;
@@ -259,19 +265,21 @@ namespace Urban_Planning_Simulation
         // When undo button is clicked
         private void UndoButton_Click(object sender, RoutedEventArgs e)
         {
-            int count = MainScatterview.Items.Count;
+            int count = history.Count;
 
             if (count > 0)
             {
-                Object mostRecentItem = MainScatterview.Items[count - 1];
-                if (mostRecentItem.GetType() == typeof(Stroke)) 
+                Object mostRecentItem = history.Pop();
+                if (mostRecentItem.GetType() == typeof(Stroke))
                 {
-                    redoList.Add((Stroke) mostRecentItem);
-                    RoadCanvas.Strokes.Remove((Stroke) mostRecentItem);
-                } else if (mostRecentItem.GetType() == typeof(ScatterViewItem)) {
-                    redoList.Add((ScatterViewItem) mostRecentItem);
+                    redoList.Add((Stroke)mostRecentItem);
+                    RoadCanvas.Strokes.Remove((Stroke)mostRecentItem);
                 }
-                MainScatterview.Items.RemoveAt(count-1);
+                else if (mostRecentItem.GetType() == typeof(ScatterViewItem))
+                {
+                    redoList.Add((ScatterViewItem)mostRecentItem);
+                    MainScatterview.Items.Remove((ScatterViewItem)mostRecentItem);
+                }
             }
         }
 
@@ -282,22 +290,25 @@ namespace Urban_Planning_Simulation
             if (count > 0)
             {
                 Object mostRecentItem = redoList[count - 1];
-                if (mostRecentItem.GetType() == typeof(Stroke)) 
+                if (mostRecentItem.GetType() == typeof(Stroke))
                 {
-                    redoList.Remove((Stroke) mostRecentItem);
-                    RoadCanvas.Strokes.Add((Stroke) mostRecentItem);
-                    MainScatterview.Items.Add((Stroke) mostRecentItem);
-                } else if (mostRecentItem.GetType() == typeof(ScatterViewItem)) {
-                    redoList.Remove((ScatterViewItem) mostRecentItem);
-                    MainScatterview.Items.Add((ScatterViewItem) mostRecentItem);
+                    redoList.Remove((Stroke)mostRecentItem);
+                    RoadCanvas.Strokes.Add((Stroke)mostRecentItem);
                 }
+                else if (mostRecentItem.GetType() == typeof(ScatterViewItem))
+                {
+                    redoList.Remove((ScatterViewItem)mostRecentItem);
+                    MainScatterview.Items.Add((ScatterViewItem)mostRecentItem);
+                }
+                history.Push(mostRecentItem);
             }
         }
 
         // When clear button is clicked
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            redoList = new List<Object>();
+            redoList.Clear();
+            history.Clear();
             MainScatterview.Items.Clear();
             RoadCanvas.Strokes.Clear();
         }

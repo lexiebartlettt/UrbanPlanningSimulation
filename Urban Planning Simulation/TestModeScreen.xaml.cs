@@ -208,6 +208,7 @@ namespace Urban_Planning_Simulation
                     item.Center = p;
                     item.Orientation = objectTag.Orientation;
                     MainScatterview.Items.Add(item);
+                    history.Push(item);
                     break;
                 // building
                 case 1:
@@ -218,6 +219,7 @@ namespace Urban_Planning_Simulation
                     item.Center = p;
                     item.Orientation = objectTag.Orientation;;
                     MainScatterview.Items.Add(item);
+                    history.Push(item);
                     break;
                 // skyscraper
                 case 2:
@@ -228,6 +230,7 @@ namespace Urban_Planning_Simulation
                     item.Center = p;
                     item.Orientation = objectTag.Orientation;;
                     MainScatterview.Items.Add(item);
+                    history.Push(item);
                     break;
                 default:
                     break;
@@ -296,7 +299,8 @@ namespace Urban_Planning_Simulation
         // When clear button is clicked
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            redoList = new List<Object>();
+            redoList.Clear();
+            history.Clear();
             MainScatterview.Items.Clear();
             RoadCanvas.Strokes.Clear();
         }
