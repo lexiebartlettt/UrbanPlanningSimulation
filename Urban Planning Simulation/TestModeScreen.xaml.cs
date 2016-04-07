@@ -61,7 +61,7 @@ namespace Urban_Planning_Simulation
             }
 
             // Set up test
-            SetupTestOne();
+            SetupTestTwo();
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
@@ -218,6 +218,373 @@ namespace Urban_Planning_Simulation
             meanRoadPoint = road;
             TestMeanPoint.Text = "(" + Math.Round(meanTestPoint.X, 3) + "," + Math.Round(meanTestPoint.Y, 3) + ")";
             TestMeanRoadPoint.Text = "(" + Math.Round(meanRoadPoint.X, 3) + "," + Math.Round(meanRoadPoint.Y, 3) + ")";
+        }
+
+        // Sets up the houses and roads for test two
+        private void SetupTestTwo()
+        {
+            List<Point> testPoints = new List<Point>();
+            int count = 0;
+
+            // Draw house locations
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    int x = 500 + (i * 300);
+                    int y = 250 + (j * 150);
+                    Point center = new Point(x, y);
+
+                    ScatterViewItem house = setBuildingType(i, j);
+                    
+                    house.CanMove = false;
+                    house.CanRotate = false;
+                    house.CanScale = false;
+                    house.Center = center;
+                    house.Opacity = 0.5;
+
+                    TestScatterView.Items.Add(house);
+                    testPoints.Add(center);
+                }
+            }
+
+            int xSky = 650;
+            int ySky = 325;
+            Point centerSky = new Point(xSky, ySky);
+
+            ScatterViewItem skyscraper = SetSVHouseImage("SkyscraperEMI");
+            skyscraper.CanMove = false;
+            skyscraper.CanRotate = false;
+            skyscraper.CanScale = false;
+            skyscraper.Center = centerSky;
+            skyscraper.Opacity = 0.5;
+
+            TestScatterView.Items.Add(skyscraper);
+            testPoints.Add(centerSky);
+
+            // Draw road locations
+            DrawingAttributes roadAttributes = new DrawingAttributes();
+            roadAttributes.Color = Colors.LightGray;
+            roadAttributes.IgnorePressure = true;
+            roadAttributes.StylusTip = StylusTip.Rectangle;
+            roadAttributes.Width = 15;
+            roadAttributes.Height = 15;
+
+            // Add bounding rectangle road
+            StylusPoint point1 = new StylusPoint(420, 180);
+            StylusPoint point2 = new StylusPoint(880, 180);
+            StylusPoint point3 = new StylusPoint(880, 480);
+            StylusPoint point4 = new StylusPoint(420, 480);
+            StylusPoint point5 = new StylusPoint(420, 180);
+            StylusPointCollection points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2, point3, point4, point5 });
+            Stroke newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+
+            Point road = new Point(0, 0);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            point1 = new StylusPoint(575, 181);
+            point2 = new StylusPoint(575, 479);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            // Add verticle roads
+            point1 = new StylusPoint(725, 181);
+            point2 = new StylusPoint(725, 479);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            // Add middle road
+            point1 = new StylusPoint(420, 325);
+            point2 = new StylusPoint(570, 325);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+            road.X /= count;
+            road.Y /= count;
+
+            // Add middle road
+            point1 = new StylusPoint(730, 325);
+            point2 = new StylusPoint(880, 325);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            meanTestPoint = NormalizeAndSumPoints(testPoints);
+            meanRoadPoint = road;
+            TestMeanPoint.Text = "(" + Math.Round(meanTestPoint.X, 3) + "," + Math.Round(meanTestPoint.Y, 3) + ")";
+            TestMeanRoadPoint.Text = "(" + Math.Round(meanRoadPoint.X, 3) + "," + Math.Round(meanRoadPoint.Y, 3) + ")";
+        }
+
+        // Sets up the houses and roads for test three
+        private void SetupTestThree()
+        {
+            List<Point> testPoints = new List<Point>();
+            int count = 0;
+
+            // Draw house locations
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    int x = 350 + (i * 450);
+                    int y = 400 + (j * 150);
+                    Point center = new Point(x, y);
+
+                    ScatterViewItem house = setBuildingType(i, 0);
+                    house.CanMove = false;
+                    house.CanRotate = false;
+                    house.CanScale = false;
+                    house.Center = center;
+                    house.Opacity = 0.5;
+
+                    TestScatterView.Items.Add(house);
+                    testPoints.Add(center);
+                }
+            }
+
+            for (int k = 0; k < 4; k++)
+            {
+                int x = 500;
+                int y = 250 + (k * 150);
+                Point center = new Point(x, y);
+
+                ScatterViewItem house = SetSVHouseImage("HouseEMI");
+                house.CanMove = false;
+                house.CanRotate = false;
+                house.CanScale = false;
+                house.Center = center;
+                house.Opacity = 0.5;
+
+                TestScatterView.Items.Add(house);
+                testPoints.Add(center);
+            }
+
+            for (int l = 0; l < 2; l++)
+            {
+                int x = 650;
+                int y = 250 + (l * 450);
+                Point center = new Point(x, y);
+
+                ScatterViewItem house = SetSVHouseImage("BuildingEMI");
+                house.CanMove = false;
+                house.CanRotate = false;
+                house.CanScale = false;
+                house.Center = center;
+                house.Opacity = 0.5;
+
+                TestScatterView.Items.Add(house);
+                testPoints.Add(center);
+            }
+
+                int xSky = 650;
+                int ySky = 475;
+                Point centerSky = new Point(xSky, ySky);
+
+                ScatterViewItem skyscraper = SetSVHouseImage("SkyscraperEMI");
+                skyscraper.CanMove = false;
+                skyscraper.CanRotate = false;
+                skyscraper.CanScale = false;
+                skyscraper.Center = centerSky;
+                skyscraper.Opacity = 0.5;
+
+                TestScatterView.Items.Add(skyscraper);
+                testPoints.Add(centerSky);
+
+            // Draw road locations
+            DrawingAttributes roadAttributes = new DrawingAttributes();
+            roadAttributes.Color = Colors.LightGray;
+            roadAttributes.IgnorePressure = true;
+            roadAttributes.StylusTip = StylusTip.Rectangle;
+            roadAttributes.Width = 15;
+            roadAttributes.Height = 15;
+
+            // Add bounding rectangle road
+            StylusPoint point1 = new StylusPoint(420, 180);
+            StylusPoint point2 = new StylusPoint(720, 180);
+            StylusPoint point3 = new StylusPoint(870, 330);
+            StylusPoint point4 = new StylusPoint(870, 630);
+            StylusPoint point5 = new StylusPoint(720, 780);
+            StylusPoint point6 = new StylusPoint(420, 780);
+            StylusPoint point7 = new StylusPoint(270, 630);
+            StylusPoint point8 = new StylusPoint(270, 330);
+            StylusPoint point9 = new StylusPoint(420, 180);
+
+            StylusPointCollection points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2, point3, point4, point5, point6, point7, point8, point9 });
+            Stroke newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+
+            Point road = new Point(0, 0);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            point1 = new StylusPoint(420, 181);
+            point2 = new StylusPoint(420, 779);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            point1 = new StylusPoint(570, 181);
+            point2 = new StylusPoint(570, 779);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            point1 = new StylusPoint(720, 181);
+            point2 = new StylusPoint(720, 779);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            point1 = new StylusPoint(270, 330);
+            point2 = new StylusPoint(869, 330);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            point1 = new StylusPoint(270, 630);
+            point2 = new StylusPoint(869, 630);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            point1 = new StylusPoint(270, 480);
+            point2 = new StylusPoint(570, 480);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            point1 = new StylusPoint(720, 480);
+            point2 = new StylusPoint(869, 480);
+            points = new StylusPointCollection(
+                new StylusPoint[] { point1, point2 });
+            newStroke = new Stroke(points, roadAttributes);
+            TestRoadCanvas.Strokes.Add(newStroke);
+            for (int i = 0; i < points.Count; i++)
+            {
+                road.X += points[i].X;
+                road.Y += points[i].Y;
+            }
+            count += points.Count;
+
+            meanTestPoint = NormalizeAndSumPoints(testPoints);
+            meanRoadPoint = road;
+            TestMeanPoint.Text = "(" + Math.Round(meanTestPoint.X, 3) + "," + Math.Round(meanTestPoint.Y, 3) + ")";
+            TestMeanRoadPoint.Text = "(" + Math.Round(meanRoadPoint.X, 3) + "," + Math.Round(meanRoadPoint.Y, 3) + ")";
+        }
+
+        //Set the house type based on two variables
+        private ScatterViewItem setBuildingType(int varOne, int varTwo){
+            ScatterViewItem building = SetSVHouseImage("HouseEMI"); ;
+            switch (varOne % 2)
+            {
+                case 0:
+                    switch (varTwo % 2)
+                    {
+                        case 0:
+                            building = SetSVHouseImage("HouseEMI");
+                            break;
+                        case 1:
+                            building = SetSVHouseImage("BuildingEMI");
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (varTwo % 2)
+                    {
+                        case 0:
+                            building = SetSVHouseImage("BuildingEMI");
+                            break;
+                        case 1:
+                            building = SetSVHouseImage("HouseEMI");
+                            break;
+                    }
+                    break;
+            }
+            return building;
         }
 
         // Normalize and sums the passed points
