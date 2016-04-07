@@ -19,7 +19,6 @@
         -->
         <s:SurfaceScrollViewer  x:Name="MainPanel" MouseDoubleClick="Click" s:TouchExtensions.HoldGesture="gesturebox_HoldGesture" Margin="0,0,12,0">
             <Grid>
-                <Image x:Name="PanelBackground" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="UniformToFill" />
                 <s:TagVisualizer x:Name="UrbanTagVisualizer" Height="8000" Width="8000" VisualizationAdded="UrbanTagVisualizer_VisualizationAdded" VisualizationRemoved="UrbanTagVisualizer_VisualizationRemoved">
                     <s:TagVisualizer.Definitions>
                         <s:TagVisualizationDefinition x:Name="House" Value="0x00"  Source="TagVisualization1.xaml" LostTagTimeout="100" MaxCount="2" OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0" TagRemovedBehavior="Disappear"  UsesTagOrientation="True" />

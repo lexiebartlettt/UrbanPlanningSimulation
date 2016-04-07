@@ -49,6 +49,7 @@ namespace Urban_Planning_Simulation
             // Initialize the layout
             InitializeComponent();
             InitializePanels();
+            InitializeBackground();
             InitializeInkCanvas();
             InitializeMode();
 
@@ -915,6 +916,21 @@ namespace Urban_Planning_Simulation
             canPlaceHouse = true;
             RoadCanvas.IsEnabled = false;
             tagDetected = false;
+        }
+
+        // Initialize the background
+        private void InitializeBackground()
+        {
+            BitmapImage backgroundImage = new BitmapImage();
+            backgroundImage.BeginInit();
+            backgroundImage.UriSource = new Uri("Resources/GrassTile.png", UriKind.Relative);
+            backgroundImage.EndInit();
+
+            ImageBrush backgroundBrush = new ImageBrush(backgroundImage);
+            backgroundBrush.ViewportUnits = BrushMappingMode.Absolute;
+            backgroundBrush.Viewport = new Rect(0, 0, backgroundImage.Width, backgroundImage.Height);
+            backgroundBrush.TileMode = TileMode.Tile;
+            this.Background = backgroundBrush;
         }
 
         //======================================================================

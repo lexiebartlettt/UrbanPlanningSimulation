@@ -44,6 +44,7 @@ namespace Urban_Planning_Simulation
             // Initialize the layout
             InitializeComponent();
             InitializeScrollView();
+            InitializeBackground();
             InitializeMode();
             InitializePanels();
             InitializeInkCanvas();
@@ -359,15 +360,27 @@ namespace Urban_Planning_Simulation
         // Sets the default settings for scroll view
         private void InitializeScrollView()
         {
-            //Initialize Background
-            PanelBackground.Source = new BitmapImage(new Uri("Resources/grass.png", UriKind.Relative));
-
             // Start initial position and options for ScrollViewer
             MainPanel.ScrollToVerticalOffset(4000);
             MainPanel.ScrollToHorizontalOffset(4000);
             MainPanel.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             MainPanel.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
             MainPanel.PanningMode = PanningMode.None;
+        }
+
+        // Initialize the background
+        private void InitializeBackground()
+        {
+            BitmapImage backgroundImage = new BitmapImage();
+            backgroundImage.BeginInit();
+            backgroundImage.UriSource = new Uri("Resources/GrassTile.png", UriKind.Relative);
+            backgroundImage.EndInit();
+
+            ImageBrush backgroundBrush = new ImageBrush(backgroundImage);
+            backgroundBrush.ViewportUnits = BrushMappingMode.Absolute;
+            backgroundBrush.Viewport = new Rect(0, 0, backgroundImage.Width, backgroundImage.Height);
+            backgroundBrush.TileMode = TileMode.Tile;
+            this.Background = backgroundBrush;
         }
 
         //======================================================================
