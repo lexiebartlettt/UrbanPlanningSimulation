@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -39,10 +40,11 @@ namespace Urban_Planning_Simulation
         private List<Object> redoList = new List<Object>();
         private Stack<Object> history = new Stack<Object>();
 
-        // Testing accuracy
+        // Testing accuracy and speed
         private Point meanTestPoint;
         private Point meanRoadPoint;
         private List<ScatterViewItem> userPlacedHouses = new List<ScatterViewItem>();
+        private Stopwatch time = new Stopwatch();
 
         public TestModeScreen(String testType)
         {
@@ -52,6 +54,7 @@ namespace Urban_Planning_Simulation
             InitializeBackground();
             InitializeInkCanvas();
             InitializeMode();
+            InitilizeTimer();
 
             // Enable DEBUG mode options
             if (DEBUG_MODE)
@@ -841,6 +844,9 @@ namespace Urban_Planning_Simulation
         // When mean button is clicked
         private void ScoreButton_Click(object sender, RoutedEventArgs e)
         {
+            time.Stop();
+            TimeSpan ts = time.Elapsed;
+            MessageBox.Show("Time: " + ts.ToString());
             // Calculate normalized house mean
             if (userPlacedHouses.Count == 0)
             {
@@ -881,6 +887,7 @@ namespace Urban_Planning_Simulation
                 double dist = CalculateEuclideanDistance(roads, meanRoadPoint);
                 MessageBox.Show("Road Score: " + dist.ToString());
             }
+            time.Start();
         }
 
         //======================================================================
@@ -903,6 +910,12 @@ namespace Urban_Planning_Simulation
             SetButtonSize(RedoButton, WindowHeight / 10);
             SetButtonSize(ClearButton, WindowHeight / 10);
         }
+
+        private void InitilizeTimer()
+        {
+            time.Start();
+        }
+
 
         // Sets the settings for the road InkCanvas
         private void InitializeInkCanvas()
