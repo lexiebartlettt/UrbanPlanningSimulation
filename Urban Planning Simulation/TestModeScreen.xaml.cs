@@ -44,7 +44,7 @@ namespace Urban_Planning_Simulation
         private Point meanRoadPoint;
         private List<ScatterViewItem> userPlacedHouses = new List<ScatterViewItem>();
 
-        public TestModeScreen()
+        public TestModeScreen(String testType)
         {
             // Initialize the layout
             InitializeComponent();
@@ -62,7 +62,14 @@ namespace Urban_Planning_Simulation
             }
 
             // Set up test
-            SetupTestTwo();
+            if (testType == "t1")
+            {
+                SetupTestOne();
+            } else if (testType == "t2") {
+                SetupTestTwo();
+            } else if (testType == "t3") {
+                SetupTestThree();
+            }
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();

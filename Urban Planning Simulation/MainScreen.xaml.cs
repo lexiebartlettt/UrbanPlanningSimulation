@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -91,7 +92,54 @@ namespace Urban_Planning_Simulation
             // Next line for test type in test mode
             // ElementMenuItem option = (ElementMenuItem) sender;
 
-            TestModeScreen testWindow = new TestModeScreen();
+            Form testSelectForm = new Form();
+            System.Windows.Forms.Button testOneButton = new System.Windows.Forms.Button();
+            System.Windows.Forms.Button testTwoButton = new System.Windows.Forms.Button();
+            System.Windows.Forms.Button testThreeButton = new System.Windows.Forms.Button();
+
+            testOneButton.Text = "Test One";
+            testOneButton.Location = new System.Drawing.Point(10, 10);
+            testOneButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            testOneButton.Name = "t1";
+            testOneButton.Click += new EventHandler(testForm_click);
+            testTwoButton.Text = "Test Two";
+            testTwoButton.Location = new System.Drawing.Point(testOneButton.Left, testOneButton.Height + testOneButton.Top + 10);
+            testTwoButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            testTwoButton.Name = "t2";
+            testTwoButton.Click += new EventHandler(testForm_click);
+            testThreeButton.Text = "Test Three";
+            testThreeButton.Location = new System.Drawing.Point(testOneButton.Left, testTwoButton.Height + testTwoButton.Top + 10);
+            testThreeButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            testThreeButton.Name = "t3";
+            testThreeButton.Click += new EventHandler(testForm_click);
+
+            testSelectForm.Text = "Select test to run";
+            testSelectForm.MinimizeBox = false;
+            testSelectForm.MaximizeBox = false;
+            testSelectForm.Size = new System.Drawing.Size(testOneButton.Width, (testOneButton.Height * 6));
+            testSelectForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+            testSelectForm.StartPosition = FormStartPosition.CenterScreen;
+
+            testSelectForm.Controls.Add(testOneButton);
+            testSelectForm.Controls.Add(testTwoButton);
+            testSelectForm.Controls.Add(testThreeButton);
+            testOneButton.Left = (testOneButton.Parent.Width / 2) - (testThreeButton.Width / 2);
+            testTwoButton.Left = (testOneButton.Parent.Width / 2) - (testThreeButton.Width / 2);
+            testThreeButton.Left = (testOneButton.Parent.Width / 2) - (testThreeButton.Width / 2);
+
+            testSelectForm.Show();
+
+            //TestModeScreen testWindow = new TestModeScreen();
+            //testWindow.Show();
+        }
+
+        private void testForm_click(object sender, System.EventArgs e)
+        {
+            System.Windows.Forms.Button pressedButton = (System.Windows.Forms.Button)sender;
+            Form testSelectForm = (Form) pressedButton.Parent;
+            testSelectForm.Close();
+
+            TestModeScreen testWindow = new TestModeScreen(pressedButton.Name);
             testWindow.Show();
         }
     }
