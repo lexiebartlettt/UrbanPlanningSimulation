@@ -83,8 +83,6 @@ namespace Urban_Planning_Simulation
         {
             OpenModeScreen mainWindow = new OpenModeScreen();
             mainWindow.Show();
-            // Don't need start window anymore (Maybe keep it open though?)
-            this.Close();
         }
 
         // Called when "Test Mode" button is clicked
@@ -95,7 +93,6 @@ namespace Urban_Planning_Simulation
 
             TestModeScreen testWindow = new TestModeScreen();
             testWindow.Show();
-            this.Close();
         }
     }
 }
