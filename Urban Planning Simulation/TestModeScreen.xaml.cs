@@ -634,7 +634,7 @@ namespace Urban_Planning_Simulation
 
                 item.Center = mousePosition;
                 item.Orientation = 0;
-                
+
                 MainScatterview.Items.Add(item);
                 userPlacedHouses.Add(item);
                 history.Push(item);
@@ -847,6 +847,7 @@ namespace Urban_Planning_Simulation
             time.Stop();
             TimeSpan ts = time.Elapsed;
             MessageBox.Show("Time: " + ts.ToString());
+
             // Calculate normalized house mean
             if (userPlacedHouses.Count == 0)
             {
@@ -860,6 +861,15 @@ namespace Urban_Planning_Simulation
 
                 Point normalized = NormalizeAndSumPoints(userPlacedHousesPoints);
                 double dist = CalculateEuclideanDistance(normalized, meanTestPoint);
+
+                // Adjust score for too many/little houses
+                if (userPlacedHouses.Count != TestScatterView.Items.Count)
+                {
+                    int diff = Math.Abs(userPlacedHouses.Count - TestScatterView.Items.Count);
+                    dist += (2 * diff);
+                }
+
+
                 MessageBox.Show("House Score: " + dist.ToString());
             }
 
