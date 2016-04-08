@@ -34,10 +34,15 @@
                         <s:ScatterView x:Name="MainScatterview" />
                     </Grid>
                 </s:TagVisualizer>
-
-        <!-- Top Button -->
-        <s:SurfaceButton Name="ShowScore" Background="Gray" BorderBrush="Black" BorderThickness="1" Margin="0, 220, 50, 0" Content="Show Score" Click="ScoreButton_Click" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         
+        <!-- Top Button -->
+        <StackPanel x:Name="TopButtons" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 50, 50, 0" Orientation="Horizontal" MinHeight="0">
+            <!-- Top Button -->
+            <Border x:Name="ScoreBorder" BorderThickness="1" BorderBrush="Black">
+                <s:SurfaceButton x:Name="ShowScore" Click="ScoreButton_Click" Content="Show Score" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Gray" TextBlock.Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Border>
+        </StackPanel>
+
         <!-- Left Button Set -->
         <StackPanel x:Name="LeftButtons" HorizontalAlignment="Left" Margin="35,0,0,35" Orientation="Horizontal" VerticalAlignment="Bottom" MinHeight="0">
             <!-- Undo Button -->

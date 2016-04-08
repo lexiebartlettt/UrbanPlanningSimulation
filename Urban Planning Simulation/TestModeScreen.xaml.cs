@@ -26,7 +26,7 @@ namespace Urban_Planning_Simulation
         // Constants
         private const int ROAD_BUTTON = 1;
         private const int HOUSE_BUTTON = 2;
-        private const bool DEBUG_MODE = true;
+        private const bool DEBUG_MODE = false;
 
         // Flags for the current mode
         private Boolean canPlaceHouse;
@@ -913,12 +913,14 @@ namespace Urban_Planning_Simulation
             // Setting sizes for StackPanels
             RightButtons.Height = WindowHeight / 10;
             LeftButtons.Height = WindowHeight / 10;
+            TopButtons.Height = WindowHeight / 10;
 
             SetButtonSize(HouseButton, WindowHeight / 10);
             SetButtonSize(RoadButton, WindowHeight / 10);
             SetButtonSize(UndoButton, WindowHeight / 10);
             SetButtonSize(RedoButton, WindowHeight / 10);
             SetButtonSize(ClearButton, WindowHeight / 10);
+            SetButtonSize(ShowScore, WindowHeight / 10);
         }
 
         private void InitilizeTimer()

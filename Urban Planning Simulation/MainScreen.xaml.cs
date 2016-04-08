@@ -128,9 +128,6 @@ namespace Urban_Planning_Simulation
             testThreeButton.Left = (testOneButton.Parent.Width / 2) - (testThreeButton.Width / 2);
 
             testSelectForm.Show();
-
-            //TestModeScreen testWindow = new TestModeScreen();
-            //testWindow.Show();
         }
 
         private void testForm_click(object sender, System.EventArgs e)
