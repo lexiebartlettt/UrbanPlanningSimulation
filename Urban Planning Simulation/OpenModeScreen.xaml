@@ -63,9 +63,21 @@
                         Name="HouseMenu"
                         ActivationMode="HostInteraction" 
                         ActivationHost="{Binding ElementName=HouseButton}">
-                        <s:ElementMenuItem Name="HouseEMI"  Header="House" Click="HouseButton_Click"/>
-                        <s:ElementMenuItem Name="BuildingEMI"  Header="Building" Click="HouseButton_Click"/>
-                        <s:ElementMenuItem Name="SkyscraperEMI"  Header="Skyscraper" Click="HouseButton_Click"/>
+                        <s:ElementMenuItem Name="HouseEMI"  Header="House" Click="HouseButton_Click">
+                            <s:ElementMenuItem.Icon>
+                                <Image Source="Resources\iso_house_1.png" />
+                            </s:ElementMenuItem.Icon>
+                        </s:ElementMenuItem>
+                        <s:ElementMenuItem Name="BuildingEMI"  Header="Building" Click="HouseButton_Click">
+                            <s:ElementMenuItem.Icon>
+                                <Image Source="Resources\iso_building_1.png" />
+                            </s:ElementMenuItem.Icon>
+                        </s:ElementMenuItem>
+                        <s:ElementMenuItem Name="SkyscraperEMI"  Header="Skyscraper" Click="HouseButton_Click">
+                            <s:ElementMenuItem.Icon>
+                                <Image Source="Resources\iso_skyscraper_1.png" />
+                            </s:ElementMenuItem.Icon>
+                        </s:ElementMenuItem>
                     </s:ElementMenu>
                 </Grid>
             </Border>
